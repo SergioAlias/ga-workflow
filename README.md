@@ -1,0 +1,1 @@
+Workflow to perform fungal genome assemblies with PacBio data.
