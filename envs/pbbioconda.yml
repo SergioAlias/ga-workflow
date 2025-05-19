@@ -1,0 +1,7 @@
+name: pbbioconda
+channels:
+    - conda-forge
+    - bioconda
+    - defaults
+dependencies:
+    - pbccs=6.4.0
