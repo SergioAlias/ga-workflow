@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Sergio Alías, 20250506
-# Last modified 20250515
+# Last modified 20250519
 
 # daemon.sh
 
@@ -9,7 +9,7 @@
 
 # Usage: ./daemon.sh [module-number] [-r]
 
-if ! [[ "$1" =~ ^(0|1a|1b|2|3|4|5a|5b|6|7|8)$ ]]; then
+if ! [[ "$1" =~ ^(0|1a|1b|2|3|4|5a|5b|6|7|8|i0|i1)$ ]]; then
   echo "Warning: No module number specified. Usage: ./daemon.sh [module-number] [-r]"
   exit 1
 fi
@@ -17,7 +17,7 @@ fi
 export R_FLAG=False
 if [[ "$2" == "-r" ]] ; then
     export R_FLAG=True
-    [[ ! "$1" =~ ^(0)$ ]] &&
+    [[ ! "$1" =~ ^(0|i0)$ ]] &&
     printf "\nWarning: -r option will be ignored for module $1\n"
 fi
 
@@ -110,5 +110,20 @@ elif [ "$module" == "7" ] ; then
     printf -- "--------------------\n\n" | tee -a "$LOGPATH"/"$LOGFILE" 
     { time 08_quast.sh; } 2>&1 | tee -a "$LOGPATH"/"$LOGFILE"
     printf "\nLogfile: $LOGFILE\n" 
+
+elif [ "$module" == "i0" ] ; then
+    # MODULE i0: FASTQC
+    printf "Launching module i0: FASTQC\n\n" | tee -a "$LOGPATH"/"$LOGFILE" 
+    printf -- "--------------------\n\n" | tee -a "$LOGPATH"/"$LOGFILE" 
+    { time i0_fastqc.sh; } 2>&1 | tee -a "$LOGPATH"/"$LOGFILE"
+    printf "\nLogfile: $LOGFILE\n"
+
+elif [ "$module" == "i1" ] ; then
+    # MODULE i1: CUTADAPT
+    printf "Launching module i1: Cutadapt\n\n" | tee -a "$LOGPATH"/"$LOGFILE" 
+    printf -- "--------------------\n\n" | tee -a "$LOGPATH"/"$LOGFILE" 
+    { time i1_cutadapt.sh; } 2>&1 | tee -a "$LOGPATH"/"$LOGFILE"
+    printf "\nLogfile: $LOGFILE\n"
+
 
 fi

@@ -11,6 +11,7 @@ export STRAIN="SP1_7"                                                #-----#    
 export PROJ_NAME="assembly_"$STRAIN                                  #-----#    Project directory name
 export WDIR="/mnt/data3/sergio_data3/scratch/projects/"$PROJ_NAME    #-----#    Project directory path
 export READ_PATH=$CODE_PATH"/pacbio"                                 #-----#    Path where PacBio samples were linked and renamed
+export ILLUMINA_PATH=$CODE_PATH"/illumina"                           #-----#    Path where Illumina samples were linked and renamed
 
 
 ###################################
@@ -111,3 +112,16 @@ export RACON_ITER=3                                             #-----# Number o
 export QUAST_OUT=$WDIR"/quast"                              #-----# QUAST outdir
 export QUAST_PATH="/home/sioly/applications/quast.5.2.0"    #-----# QUAST installation path
 export QUAST_THREADS=8                                      #-----# Number of threads to use
+
+
+######  MODULE i0: FASTQC #######
+
+export FASTQC_THREADS=2                      #-----# Number of threads for FastQC. Recommended: 2
+
+
+######  MODULE i1: Cutadapt #######
+
+export CUTADAPT_OUT=$WDIR"/cutadapt"                              #-----# Cutadapt outdir
+export CUTADAPT_ADAPTER_F="AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC"    #-----# Adapter sequence for forward reads
+export CUTADAPT_ADAPTER_R="AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT"     #-----# Adapter sequence for reverse reads
+export CUTADAPT_THREADS=2                                         #-----# Number of threads for Cutadapt
