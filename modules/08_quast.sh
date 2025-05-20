@@ -4,7 +4,7 @@
 
 # Sergio Alías-Segura
 
-ASSEMBLY_DIRS=(flye minimap2_miniasm)
+ASSEMBLY_DIRS=(flye minimap2_miniasm spades)
 
 QUAST_IN=""
 

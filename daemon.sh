@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Sergio Alías, 20250506
-# Last modified 20250519
+# Last modified 20250520
 
 # daemon.sh
 
@@ -9,7 +9,7 @@
 
 # Usage: ./daemon.sh [module-number] [-r]
 
-if ! [[ "$1" =~ ^(0|1a|1b|2|3|4|5a|5b|6|7|8|i0|i1)$ ]]; then
+if ! [[ "$1" =~ ^(0|1a|1b|2|3|4|5a|5b|6|7|8|i0|i1|i2)$ ]]; then
   echo "Warning: No module number specified. Usage: ./daemon.sh [module-number] [-r]"
   exit 1
 fi
@@ -104,7 +104,7 @@ elif [ "$module" == "6" ] ; then
     { time 06_racon.sh; } 2>&1 | tee -a "$LOGPATH"/"$LOGFILE"
     printf "\nLogfile: $LOGFILE\n" 
 
-elif [ "$module" == "7" ] ; then
+elif [ "$module" == "8" ] ; then
     # MODULE 8: ASSEMBLY QUALITY
     printf "Launching module 8: Assembly quality\n\n" | tee -a "$LOGPATH"/"$LOGFILE"
     printf -- "--------------------\n\n" | tee -a "$LOGPATH"/"$LOGFILE" 
@@ -125,5 +125,12 @@ elif [ "$module" == "i1" ] ; then
     { time i1_cutadapt.sh; } 2>&1 | tee -a "$LOGPATH"/"$LOGFILE"
     printf "\nLogfile: $LOGFILE\n"
 
+elif [ "$module" == "i2" ] ; then
+    # MODULE i2: ASSEMBLY WITH SPADES
+    printf "Launching module i2: Assembly with SPAdes\n\n" | tee -a "$LOGPATH"/"$LOGFILE" 
+    printf -- "--------------------\n\n" | tee -a "$LOGPATH"/"$LOGFILE" 
+    { time i2_spades.sh; } 2>&1 | tee -a "$LOGPATH"/"$LOGFILE"
+    printf "\nLogfile: $LOGFILE\n"
 
 fi
+

@@ -119,9 +119,20 @@ export QUAST_THREADS=8                                      #-----# Number of th
 export FASTQC_THREADS=2                      #-----# Number of threads for FastQC. Recommended: 2
 
 
-######  MODULE i1: Cutadapt #######
+######  MODULE i1: CUTADAPT #######
 
+export CUTADAPT_ACTIVATE=False                                    #-----# True if you will run this module, False otherwise
 export CUTADAPT_OUT=$WDIR"/cutadapt"                              #-----# Cutadapt outdir
 export CUTADAPT_ADAPTER_F="AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC"    #-----# Adapter sequence for forward reads
 export CUTADAPT_ADAPTER_R="AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT"     #-----# Adapter sequence for reverse reads
 export CUTADAPT_THREADS=2                                         #-----# Number of threads for Cutadapt
+
+
+######  MODULE i2: ASSEMBLY WITH SPADES #######
+
+export SPADES_OUT=$WDIR"/spades"      #-----# SPAdes outdir
+export SPADES_THREADS=16              #-----# Number of threads for SPAdes [default: 16]
+export SPADES_RAM=60                  #-----# RAM limit for SPAdes in Gb (terminates if exceeded) [default: 250]
+
+[ "$CUTADAPT_ACTIVATE" != "True" ] && \
+export CUTADAPT_OUT=$ILLUMINA_PATH    #-----#  Changes input dir if module 4 is not performed
