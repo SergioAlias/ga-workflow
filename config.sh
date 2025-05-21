@@ -100,11 +100,29 @@ export MINIASM_PATH="/home/sioly/applications/miniasm"      #-----# Miniasm inst
 
 ######  MODULE 6: ASSEMBLY POLISHING WITH RACON #######
 
-export RACON_ASSEMBLY="minimap2_miniasm"                        #-----# Assembly to polish. Valid choices: (flye, minimap2_miniasm)
+export RACON_ACTIVATE=True                                      #-----# True if you will run this module, False otherwise
+export RACON_ASSEMBLY="minimap2_miniasm"                        #-----# Assembly to polish. Valid choices: (flye, minimap2_miniasm, spades)
 export RACON_OUT=$WDIR"/racon"                                  #-----# Racon outdir
 export RACON_PATH="/home/sioly/applications/racon/build/bin"    #-----# Racon installation path
 export RACON_THREADS=15                                         #-----# Number of threads to use [default: 1]
 export RACON_ITER=3                                             #-----# Number of polishing iterations
+
+
+######  MODULE 7: ASSEMBLY POLISHING WITH PILON #######
+
+export PILON_ASSEMBLY="minimap2_miniasm"                          #-----# Assembly to polish. Valid choices: (flye, minimap2_miniasm, spades)
+
+if [ "$RACON_ACTIVATE" == "True" ]; then
+    export PILON_IN=$RACON_OUT/$PILON_ASSEMBLY"/iter_"$RACON_ITER/$PILON_ASSEMBLY"_racon_"$RACON_ITER".fasta"    #-----# Assembly file if Racon was used
+else
+    export PILON_IN=$WDIR/$PILON_ASSEMBLY/$PILON_ASSEMBLY".fasta"                                                #-----# Assembly file otherwise
+fi
+
+export PILON_OUT=$WDIR"/pilon"                                    #-----# Pilon outdir
+export PILON_JAR="/home/sioly/applications/bin/pilon-1.24.jar"    #-----# Pilon file
+export PILON_THREADS=8                                            #-----# Number of threads to use [default: 1]
+export PILON_RAM=50                                               #-----# RAM limit for Pilon in Gb
+export PILON_ITER=5                                               #-----# Number of polishing iterations
 
 
 ######  MODULE 8: ASSEMBLY QUALITY #######
@@ -131,8 +149,9 @@ export CUTADAPT_THREADS=2                                         #-----# Number
 ######  MODULE i2: ASSEMBLY WITH SPADES #######
 
 export SPADES_OUT=$WDIR"/spades"      #-----# SPAdes outdir
-export SPADES_THREADS=16              #-----# Number of threads for SPAdes [default: 16]
+export SPADES_THREADS=10              #-----# Number of threads for SPAdes [default: 16]
 export SPADES_RAM=60                  #-----# RAM limit for SPAdes in Gb (terminates if exceeded) [default: 250]
+export SPADES_HYBRID=True             #-----# True if you want to use long reads too, False otherwise
 
 [ "$CUTADAPT_ACTIVATE" != "True" ] && \
 export CUTADAPT_OUT=$ILLUMINA_PATH    #-----#  Changes input dir if module 4 is not performed

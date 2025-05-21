@@ -104,6 +104,13 @@ elif [ "$module" == "6" ] ; then
     { time 06_racon.sh; } 2>&1 | tee -a "$LOGPATH"/"$LOGFILE"
     printf "\nLogfile: $LOGFILE\n" 
 
+elif [ "$module" == "7" ] ; then
+    # MODULE 7: ASSEMBLY POLISHING WITH PILON
+    printf "Launching module 7: Assembly polishing with Pilon\n\n" | tee -a "$LOGPATH"/"$LOGFILE"
+    printf -- "--------------------\n\n" | tee -a "$LOGPATH"/"$LOGFILE" 
+    { time 07_pilon.sh; } 2>&1 | tee -a "$LOGPATH"/"$LOGFILE"
+    printf "\nLogfile: $LOGFILE\n" 
+
 elif [ "$module" == "8" ] ; then
     # MODULE 8: ASSEMBLY QUALITY
     printf "Launching module 8: Assembly quality\n\n" | tee -a "$LOGPATH"/"$LOGFILE"
