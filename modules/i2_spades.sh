@@ -15,9 +15,9 @@ SPADES_IN+=(-2 $INPUT_R)
 [[ $SPADES_HYBRID == "True" ]] && \
 SPADES_IN+=(--pacbio $FASTPLONG_OUT/$STRAIN".fastq")
 
-echo "spades.py ${SPADES_IN[@]} \
+spades.py ${SPADES_IN[@]} \
           -o $SPADES_OUT \
           --threads $SPADES_THREADS \
-          --memory $SPADES_RAM"
+          --memory $SPADES_RAM
 
 mv $SPADES_OUT/contigs.fasta $SPADES_OUT/spades.fasta
