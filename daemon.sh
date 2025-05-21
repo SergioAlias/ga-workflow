@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Sergio Alías, 20250506
-# Last modified 20250520
+# Last modified 20250521
 
 # daemon.sh
 

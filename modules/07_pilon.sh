@@ -26,7 +26,7 @@ for ((i=1; i<=PILON_ITER; i++)); do
     bwa index $CURRENT_ASSEMBLY
 
     bwa mem -t $PILON_THREADS \
-            -o $ITER_DIR/bwamem.sam
+            -o $ITER_DIR/bwamem.sam \
             $CURRENT_ASSEMBLY \
             $ILLUMINA_F \
             $ILLUMINA_R
@@ -43,7 +43,7 @@ for ((i=1; i<=PILON_ITER; i++)); do
     java -Xmx${PILON_RAM}G -jar $PILON_JAR --genome $CURRENT_ASSEMBLY \
                                            --bam $ITER_DIR/bwamem_sorted.bam \
                                            --output $PILON_ASSEMBLY"_pilon_"$i \
-                                           --outdir $ITER_DIR
+                                           --outdir $ITER_DIR \
                                            --threads $PILON_THREADS \
                                            --fix all \
                                            --vcf \
