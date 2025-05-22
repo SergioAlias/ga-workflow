@@ -148,10 +148,17 @@ export CUTADAPT_THREADS=2                                         #-----# Number
 
 ######  MODULE i2: ASSEMBLY WITH SPADES #######
 
-export SPADES_OUT=$WDIR"/spades"      #-----# SPAdes outdir
-export SPADES_THREADS=10              #-----# Number of threads for SPAdes [default: 16]
-export SPADES_RAM=60                  #-----# RAM limit for SPAdes in Gb (terminates if exceeded) [default: 250]
-export SPADES_HYBRID=True             #-----# True if you want to use long reads too, False otherwise
+export SPADES_THREADS=10                  #-----# Number of threads for SPAdes [default: 16]
+export SPADES_RAM=60                      #-----# RAM limit for SPAdes in Gb (terminates if exceeded) [default: 250]
+export SPADES_HYBRID=True                 #-----# True if you want to use long reads too, False otherwise
+
+if [ "$SPADES_HYBRID" == "True" ]; then
+    export SPADES_NAME="spades_hybrid"    #-----# Name for SPAdes directory and FASTA file if hybrid assembly is performed
+else
+    export SPADES_NAME="spades"           #-----# Name otherwise
+fi
+
+export SPADES_OUT=$WDIR/$SPADES_NAME      #-----# SPAdes outdir
 
 [ "$CUTADAPT_ACTIVATE" != "True" ] && \
 export CUTADAPT_OUT=$ILLUMINA_PATH    #-----#  Changes input dir if module 4 is not performed

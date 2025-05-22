@@ -45,9 +45,7 @@ for ((i=1; i<=PILON_ITER; i++)); do
                                            --output $PILON_ASSEMBLY"_pilon_"$i \
                                            --outdir $ITER_DIR \
                                            --threads $PILON_THREADS \
-                                           --fix all \
-                                           --vcf \
-                                           --verbose
+                                           --fix all
 
     CURRENT_ASSEMBLY=$ITER_DIR/$PILON_ASSEMBLY"_pilon_"$i".fasta"
 

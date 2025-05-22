@@ -18,7 +18,7 @@ For programs that require a Conda environment, I highly recommend installing [Mi
 
 ## How to run the workflow
 
-1. **Edit the configuration:** Open `config.sh` and set all relevant variables. Each module has its own parameters and some of them have activation flags (`*_ACTIVATE`). It is **very important** to set `config.sh` correctly so the pipeline sets input and output files for each module accordingly.  
+1. **Edit the configuration:** Open `config.sh` and set all relevant variables. Each module has its own parameters and some of them have activation flags (`*_ACTIVATE`). It is **very important** to set `config.sh` correctly so the pipeline sets input and output files for each module accordingly. For example, if you are not going to run module 1a, **it is not enough not to run it**: you **must** set `RSUB_ACTIVATE` to False. Otherwise, module 2 will try to use the non-existent output of module 1a as input. 
 
 2. **Run a module:** Launch the desired module by specifying its number:
 
