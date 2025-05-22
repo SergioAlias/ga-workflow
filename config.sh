@@ -65,7 +65,7 @@ export MERGE_OUT=$M1_OUT          #-----#  Changes input dir if module 2 is not 
 
 ######  MODULE 4: LENGTH FILTERING #######
 
-export FASTPLONG_ACTIVATE=True           #-----# True if you will run this module, False otherwise
+export FASTPLONG_ACTIVATE=False          #-----# True if you will run this module, False otherwise
 export FASTPLONG_OUT=$WDIR"/filtered"    #-----# Fastplong outdir
 export FASTPLONG_MIN_LEN=1000            #-----# Subreads with less length will be discarded
 
@@ -73,7 +73,7 @@ export FASTPLONG_MIN_LEN=1000            #-----# Subreads with less length will 
 ######  MODULE 5: ASSEMBLIES #######
 
 [ "$FASTPLONG_ACTIVATE" != "True" ] && \
-export FASTPLONG_OUT=$MERGE_OUT                  #-----#  Changes input dir if module 4 is not performed
+export FASTPLONG_OUT=$BAM2FQ_OUT    #-----#  Changes input dir if module 4 is not performed
 
 
 ######  MODULE 5a: ASSEMBLY WITH FLYE #######
