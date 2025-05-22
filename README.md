@@ -1,8 +1,10 @@
 # Fungal Genome Assembly Workflow 🧬🍄
 
-This repository provides a modular, bash-based workflow for fungal genome assembly using PacBio and/or Illumina reads.
+This repository provides a modular, bash-based workflow for fungal genome assembly using PacBio, ONT and/or Illumina reads.
 
 <img src="./img/workflow.png">
+
+Modules with dotted lines are not implemented yet.
 
 ## Before you start
 
@@ -59,13 +61,14 @@ Each module creates logs in your project directory under `/logs`.
 
 For full details on parameters, see comments in `config.sh`. For a visual understanding of the workflow, see the picture above.
 
-## Example: PacBio HiFi assembly from raw subreads
+## Examples
 
 ```bash
+# PacBio HiFi assembly from raw subreads
 ./daemon.sh 0         # Quality Control
 ./daemon.sh 1b        # Convert to CCS (HiFi) [OPTIONAL]
 ./daemon.sh 0 -r      # Repeat QC on processed reads
-./daemon.sh 2         # Merge cells [OPTIONAL]
+./daemon.sh 2         # Merge SMRT cells [OPTIONAL]
 ./daemon.sh 3         # Convert BAM to FASTQ
 ./daemon.sh 4         # Filter by length [OPTIONAL]
 ./daemon.sh 5a        # Assemble with Flye
@@ -74,6 +77,30 @@ For full details on parameters, see comments in `config.sh`. For a visual unders
 ./daemon.sh i1        # Adapter trimming [OPTIONAL]
 ./daemon.sh i0 -r     # Repeat QC on processed short reads
 ./daemon.sh 7         # Polish assembly with short reads
+./daemon.sh 8         # Assess assembly quality
+
+
+# Illumina and PacBio subread hybrid assembly
+./daemon.sh i0        # Quality control of short reads
+./daemon.sh i1        # Adapter trimming [OPTIONAL]
+./daemon.sh i0 -r     # Repeat QC on processed short reads
+./daemon.sh 0         # Quality Control
+./daemon.sh 2         # Merge SMRT cells [OPTIONAL]
+./daemon.sh 3         # Convert BAM to FASTQ
+./daemon.sh 4         # Filter by length [OPTIONAL]
+./daemon.sh i2        # Assemble with SPAdes
+./daemon.sh 6         # Polish assembly
+./daemon.sh 7         # Polish assembly with short reads
+./daemon.sh 8         # Assess assembly quality
+
+
+# ONT assembly without short reads
+./daemon.sh 0         # Quality Control
+./daemon.sh 1c        # ONT Adapter trimming [OPTIONAL]
+./daemon.sh 0 -r      # Repeat QC on processed reads
+./daemon.sh 4         # Filter by length [OPTIONAL]
+./daemon.sh 5a        # Assemble with Flye
+./daemon.sh 6         # Polish assembly
 ./daemon.sh 8         # Assess assembly quality
 ```
 
