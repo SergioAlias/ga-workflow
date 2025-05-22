@@ -11,7 +11,7 @@ This is an **_ad hoc_ pipeline** developed for a specific server environment. Th
 - Some tools come from user-managed Conda environments (see below).
 - Others may require manual installation (e.g., in `$HOME/bin`).
 
-You **must check and update the paths for all required software in `config.sh`** and ensure the programs are available as expected, specially if you are porting this workflow.
+You **must check and update the paths for all required software in `config.sh`** and ensure the programs are available as expected, specially if you are using this workflow in a different server.
 
 For programs that require a Conda environment, I highly recommend installing [Miniconda](https://docs.anaconda.com/free/miniconda/index.html) and then installing [Mamba](https://anaconda.org/conda-forge/mamba) for a lightweight and fast experience. I provide YAML files under `/envs` to create all neccesary environments with `mamba env create -f <file.yml>`. Check module code and `config.sh` to know if you need a Conda environment for that one.
 
