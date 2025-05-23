@@ -14,8 +14,11 @@ fi
 
 mkdir -p $FLYE_OUT
 
-flye --pacbio-$FLYE_TYPE $FASTPLONG_OUT/$STRAIN".fastq" \
+flye --$FLYE_TYPE \
+     $FASTPLONG_OUT/$STRAIN".fastq" \
      --iterations $FLYE_ITER \
+     --asm-coverage $FLYE_ASMCOV \
+     --genome-size $FYLE_GSIZE \
      --out-dir $FLYE_OUT \
      --threads $FLYE_THREADS
 

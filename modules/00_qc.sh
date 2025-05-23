@@ -4,6 +4,8 @@
 
 # Sergio Alías-Segura
 
+# TODO: adapt for ONT
+
 CONDA_ENV="longqc"
 ACTIVATED_ENV=0
 if [[ "$CONDA_DEFAULT_ENV" != "$CONDA_ENV" ]]; then

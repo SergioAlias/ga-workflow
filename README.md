@@ -94,7 +94,7 @@ For full details on parameters, see comments in `config.sh`. For a visual unders
 ./daemon.sh 8         # Assess assembly quality
 
 
-# ONT assembly without short reads
+# ONT assembly without short reads (WARNING: module 0 does not work for ont yet)
 ./daemon.sh 0         # Quality Control
 ./daemon.sh 1c        # ONT Adapter trimming [OPTIONAL]
 ./daemon.sh 0 -r      # Repeat QC on processed reads

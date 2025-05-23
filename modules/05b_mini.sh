@@ -6,7 +6,7 @@
 
 mkdir -p $MINI_OUT
 
-$MINIMAP2_PATH/minimap2 -x ava-pb \
+$MINIMAP2_PATH/minimap2 -x ava-$SEQ_TYPE \
                         -t $MINIMAP2_THREADS \
                         -o $MINI_OUT/overlaps.paf \
                         $FASTPLONG_OUT/$STRAIN".fastq" \

@@ -7,12 +7,12 @@
 ## GLOBAL VARS ##
 ################################### 
 
-export STRAIN="SP1_7"                                                #-----#    Strain code, should be included in filenames
+export STRAIN="CBS125086"                                            #-----#    Strain code, should be included in filenames
 export PROJ_NAME="assembly_"$STRAIN                                  #-----#    Project directory name
 export WDIR="/mnt/data3/sergio_data3/scratch/projects/"$PROJ_NAME    #-----#    Project directory path
 export READ_PATH=$CODE_PATH"/pacbio"                                 #-----#    Path where long read samples were linked and renamed
 export ILLUMINA_PATH=$CODE_PATH"/illumina"                           #-----#    Path where Illumina samples were linked and renamed. Ignored if not used
-export SEQ_TYPE="ont"                                                #-----#    Long read sequencing technology. Valid choices: (pacbio, ont). Ignored for Illumina-only assembly 
+export SEQ_TYPE="ont"                                                #-----#    Long read sequencing technology. Valid choices: (pb, ont). Ignored for Illumina-only assembly 
 
 ###################################
 ## DAEMON MODULES ##
@@ -74,7 +74,7 @@ export MERGE_OUT=$M1_OUT          #-----#  Changes input dir if module 2 is not 
 
 ######  MODULE 4: LENGTH FILTERING #######
 
-export FASTPLONG_ACTIVATE=False                     #-----# True if you will run this module, False otherwise
+export FASTPLONG_ACTIVATE=True                      #-----# True if you will run this module, False otherwise
 if [ "$SEQ_TYPE" == "pacbio" ]; then
     export FASTPLONG_OUT=$WDIR"/filtered_pacbio"    #-----# Fastplong outdir for PacBio reads
 elif [ "$SEQ_TYPE" == "ont" ]; then
@@ -91,17 +91,19 @@ export FASTPLONG_OUT=$BAM2FQ_OUT    #-----#  Changes input dir if module 4 is no
 
 ######  MODULE 5a: ASSEMBLY WITH FLYE #######
 
-export FLYE_OUT=$WDIR"/flye"       #-----# Flye outdir
+export FLYE_OUT=$WDIR"/flye"          #-----# Flye outdir
 
 if [ "$CCS_ACTIVATE" == "True" ]; then
-    export FLYE_TYPE="hifi"        #-----# HiFi option if CCS were obtained...
+    export FLYE_TYPE="pacbio-hifi"    #-----# HiFi option if CCS were obtained...
+elif [ "$PORECHOP_ACTIVATE" == "True" ]; then
+    export FLYE_TYPE="nano-hq"        #-----# ... ONT option...
 else
-    export FLYE_TYPE="raw"         #-----# ... or raw subread option otherwise
+    export FLYE_TYPE="pacbio-raw"     #-----# ... or PacBio raw subread option otherwise
 fi
-
-export FLYE_THREADS=15             #-----# Number of threads to use [default: 1]
-export FLYE_ITER=2                 #-----# Number of polishing iterations [default: 1]
-
+export FLYE_THREADS=15                #-----# Number of threads to use [default: 1]
+export FLYE_ITER=2                    #-----# Number of polishing iterations [default: 1]
+export FLYE_ASMCOV=40                 #-----# Reduced coverage for initial disjointig assembly (typically, 40x is enough)
+export FYLE_GSIZE="55m"               #-----# Estimated genome size (for example, 5m or 2.6g) 
 
 ######  MODULE 5b: ASSEMBLY WITH MINIMAP2 AND MINIASM #######
 
