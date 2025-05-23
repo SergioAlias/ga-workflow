@@ -10,9 +10,9 @@
 export STRAIN="SP1_7"                                                #-----#    Strain code, should be included in filenames
 export PROJ_NAME="assembly_"$STRAIN                                  #-----#    Project directory name
 export WDIR="/mnt/data3/sergio_data3/scratch/projects/"$PROJ_NAME    #-----#    Project directory path
-export READ_PATH=$CODE_PATH"/pacbio"                                 #-----#    Path where PacBio samples were linked and renamed
-export ILLUMINA_PATH=$CODE_PATH"/illumina"                           #-----#    Path where Illumina samples were linked and renamed
-
+export READ_PATH=$CODE_PATH"/pacbio"                                 #-----#    Path where long read samples were linked and renamed
+export ILLUMINA_PATH=$CODE_PATH"/illumina"                           #-----#    Path where Illumina samples were linked and renamed. Ignored if not used
+export SEQ_TYPE="ont"                                                #-----#    Long read sequencing technology. Valid choices: (pacbio, ont). Ignored for Illumina-only assembly 
 
 ###################################
 ## DAEMON MODULES ##
@@ -46,6 +46,15 @@ export CCS_MINRQ=0.99         #-----# Minimum predicted accuracy in [0, 1]. [def
 export CCS_LOGLEVEL=WARN      #-----# Set log level. Valid choices: (TRACE, DEBUG, INFO, WARN, FATAL) [default: WARN]
 
 
+######  MODULE 1c: ONT ADAPTER TRIMMING #######
+
+export PORECHOP_ACTIVATE=True                               #-----# True if you will run this module, False otherwise
+[ "$PORECHOP_ACTIVATE" == "True" ] && \
+export M1_OUT=$WDIR"/porechop"                              #-----# Porechop files outdir
+export PORECHOP_PATH="/home/sioly/applications/Porechop"    #-----# Porechop installation path
+export PORECHOP_THREADS=8                                   #-----# Number of threads to use for adapter alignment [default: 8]
+
+
 ######  MODULE 2: MERGING FLOW CELLS #######
 
 export MERGE_ACTIVATE=True         #-----# True if you will run this module, False otherwise
@@ -65,9 +74,13 @@ export MERGE_OUT=$M1_OUT          #-----#  Changes input dir if module 2 is not 
 
 ######  MODULE 4: LENGTH FILTERING #######
 
-export FASTPLONG_ACTIVATE=False          #-----# True if you will run this module, False otherwise
-export FASTPLONG_OUT=$WDIR"/filtered"    #-----# Fastplong outdir
-export FASTPLONG_MIN_LEN=1000            #-----# Subreads with less length will be discarded
+export FASTPLONG_ACTIVATE=False                     #-----# True if you will run this module, False otherwise
+if [ "$SEQ_TYPE" == "pacbio" ]; then
+    export FASTPLONG_OUT=$WDIR"/filtered_pacbio"    #-----# Fastplong outdir for PacBio reads
+elif [ "$SEQ_TYPE" == "ont" ]; then
+    export FASTPLONG_OUT=$WDIR"/filtered_ont"       #-----# Fastplong outdir for ONT reads
+fi
+export FASTPLONG_MIN_LEN=1000                       #-----# Subreads with less length will be discarded
 
 
 ######  MODULE 5: ASSEMBLIES #######

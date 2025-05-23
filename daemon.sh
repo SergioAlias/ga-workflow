@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Sergio Alías, 20250506
-# Last modified 20250521
+# Last modified 20250523
 
 # daemon.sh
 
@@ -9,7 +9,7 @@
 
 # Usage: ./daemon.sh [module-number] [-r]
 
-if ! [[ "$1" =~ ^(0|1a|1b|2|3|4|5a|5b|6|7|8|i0|i1|i2)$ ]]; then
+if ! [[ "$1" =~ ^(0|1a|1b|1c|2|3|4|5a|5b|6|7|8|i0|i1|i2)$ ]]; then
   echo "Warning: No module number specified. Usage: ./daemon.sh [module-number] [-r]"
   exit 1
 fi
@@ -60,6 +60,13 @@ elif [ "$module" == "1b" ] ; then
     printf "Launching module 1b: Converting subreads into CCS (HiFi reads)\n\n" | tee -a "$LOGPATH"/"$LOGFILE"
     printf -- "--------------------\n\n" | tee -a "$LOGPATH"/"$LOGFILE" 
     { time 01b_ccs.sh; } 2>&1 | tee -a "$LOGPATH"/"$LOGFILE"
+    printf "\nLogfile: $LOGFILE\n"
+
+elif [ "$module" == "1c" ] ; then
+    # MODULE 1c: ONT ADAPTER TRIMMING
+    printf "Launching module 1c: ONT adapter trimming\n\n" | tee -a "$LOGPATH"/"$LOGFILE"
+    printf -- "--------------------\n\n" | tee -a "$LOGPATH"/"$LOGFILE" 
+    { time 01c_porechop.sh; } 2>&1 | tee -a "$LOGPATH"/"$LOGFILE"
     printf "\nLogfile: $LOGFILE\n"
 
 elif [ "$module" == "2" ] ; then
