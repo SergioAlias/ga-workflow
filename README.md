@@ -30,7 +30,7 @@ For programs that require a Conda environment, I highly recommend installing [Mi
 
 Replace `N` with the module number you want to run (`0`, `1a`, `1b`, `2`, `3`, `4`, `5a`, `5b`, `6`, `7`, `8`, `i0`, `i1`, `i2`).
 
-For modules **0** (LongQC) and **i0** (FASTQC), you can use the optional `-r` flag:
+For modules **0** (LongQC) and **i0** (FastQC), you can use the optional `-r` flag:
 
 ```bash
 ./daemon.sh 0 -r
@@ -94,7 +94,7 @@ For full details on parameters, see comments in `config.sh`. For a visual unders
 ./daemon.sh 8         # Assess assembly quality
 
 
-# ONT assembly without short reads (WARNING: module 0 does not work for ont yet)
+# ONT assembly without short reads (WARNING: modules 0 and 1c do not work for ONT yet)
 ./daemon.sh 0         # Quality Control
 ./daemon.sh 1c        # ONT Adapter trimming [OPTIONAL]
 ./daemon.sh 0 -r      # Repeat QC on processed reads
