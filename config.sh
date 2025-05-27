@@ -57,15 +57,18 @@ export PORECHOP_THREADS=8                                   #-----# Number of th
 
 ######  MODULE 2: MERGING FLOW CELLS #######
 
-export MERGE_ACTIVATE=True         #-----# True if you will run this module, False otherwise
+export MERGE_ACTIVATE=False        #-----# True if you will run this module, False otherwise
 export MERGE_OUT=$WDIR"/merged"    #-----# merging outdir
 
-[ "$CCS_ACTIVATE" != "True" ] && [ "$RSUB_ACTIVATE" != "True" ] && \
+[ "$CCS_ACTIVATE" != "True" ] && \
+[ "$RSUB_ACTIVATE" != "True" ] && \
+[ "$PORECHOP_ACTIVATE" != "True" ] && \
 export M1_OUT=$READ_PATH          #-----# Changes input dir if module 1 is not performed
 
 
 ######  MODULE 3: CONVERTING BAM FILES INTO FASTQ #######
 
+export BAM2FQ_ACTIVATE=False       #-----# True if you will run this module, False otherwise
 export BAM2FQ_OUT=$WDIR"/fastq"    #-----# FASTQ files outdir
 
 [ "$MERGE_ACTIVATE" != "True" ] && \
@@ -81,6 +84,9 @@ elif [ "$SEQ_TYPE" == "ont" ]; then
     export FASTPLONG_OUT=$WDIR"/filtered_ont"       #-----# Fastplong outdir for ONT reads
 fi
 export FASTPLONG_MIN_LEN=1000                       #-----# Subreads with less length will be discarded
+
+[ "$BAM2FQ_ACTIVATE" != "True" ] && \
+export BAM2FQ_OUT=$MERGE_OUT          #-----#  Changes input dir if module 2 is not performed
 
 
 ######  MODULE 5: ASSEMBLIES #######
