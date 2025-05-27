@@ -14,15 +14,17 @@ fi
 
 mkdir -p $FLYE_OUT
 
+ulimit -v $((FLYE_RAM * 1024 * 1024))
+
 flye --$FLYE_TYPE \
      $FASTPLONG_OUT/$STRAIN".fastq" \
      --iterations $FLYE_ITER \
-     --asm-coverage $FLYE_ASMCOV \
      --genome-size $FYLE_GSIZE \
      --out-dir $FLYE_OUT \
      --threads $FLYE_THREADS
 
-# You may want to add --scaffold to the Flye command
+# You may want to add --scaffold
+# You may want to add --asm-coverage $FLYE_ASMCOV
 
 mv $FLYE_OUT"/assembly.fasta" $FLYE_OUT"/flye.fasta"
 

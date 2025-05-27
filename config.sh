@@ -11,7 +11,7 @@ export STRAIN="CBS125086"                                            #-----#    
 export PROJ_NAME="assembly_"$STRAIN                                  #-----#    Project directory name
 export WDIR="/mnt/data3/sergio_data3/scratch/projects/"$PROJ_NAME    #-----#    Project directory path
 export READ_PATH=$CODE_PATH"/pacbio"                                 #-----#    Path where long read samples were linked and renamed
-export ILLUMINA_PATH=$CODE_PATH"/illumina"                           #-----#    Path where Illumina samples were linked and renamed. Ignored if not used
+export ILLUMINA_PATH="/home/sergio/sergio_data3/ont_test_illumina"   #-----#    Path where Illumina samples were linked and renamed. Ignored if not used
 export SEQ_TYPE="ont"                                                #-----#    Long read sequencing technology. Valid choices: (pb, ont). Ignored for Illumina-only assembly 
 
 ###################################
@@ -101,7 +101,8 @@ else
     export FLYE_TYPE="pacbio-raw"     #-----# ... or PacBio raw subread option otherwise
 fi
 export FLYE_THREADS=15                #-----# Number of threads to use [default: 1]
-export FLYE_ITER=2                    #-----# Number of polishing iterations [default: 1]
+export FLYE_RAM=80                    #-----# RAM limit for Flye in Gb (managed by ulimit)
+export FLYE_ITER=1                    #-----# Number of polishing iterations [default: 1]
 export FLYE_ASMCOV=40                 #-----# Reduced coverage for initial disjointig assembly (typically, 40x is enough)
 export FYLE_GSIZE="55m"               #-----# Estimated genome size (for example, 5m or 2.6g) 
 
@@ -136,7 +137,7 @@ fi
 export PILON_OUT=$WDIR"/pilon"                                    #-----# Pilon outdir
 export PILON_JAR="/home/sioly/applications/bin/pilon-1.24.jar"    #-----# Pilon file
 export PILON_THREADS=8                                            #-----# Number of threads to use [default: 1]
-export PILON_RAM=50                                               #-----# RAM limit for Pilon in Gb
+export PILON_RAM=70                                               #-----# RAM limit for Pilon in Gb
 export PILON_ITER=5                                               #-----# Number of polishing iterations
 
 
