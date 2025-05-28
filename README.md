@@ -28,7 +28,7 @@ For programs that require a Conda environment, I highly recommend installing [Mi
 ./daemon.sh N
 ```
 
-Replace `N` with the module number you want to run (`0`, `1a`, `1b`, `2`, `3`, `4`, `5a`, `5b`, `6`, `7`, `8`, `i0`, `i1`, `i2`).
+Replace `N` with the module number you want to run (`0`, `1a`, `1b`, `1c`, `2`, `3`, `4`, `5a`, `5b`, `6`, `7`, `10`, `i1`, `i2`).
 
 For modules **0** (LongQC) and **i0** (FastQC), you can use the optional `-r` flag:
 
@@ -52,7 +52,7 @@ Each module is run separately through the `daemon.sh` controller. Modules are:
 - **5b**: Assembly with Minimap2 and Miniasm
 - **6**: Assembly Polishing with Racon
 - **7**: Assembly Polishing with short reads with Pilon
-- **8**: Assembly Quality with QUAST
+- **10**: Assembly Quality with QUAST
 - **i0**: FastQC (Illumina)
 - **i1**: Cutadapt (Illumina)
 - **i2**: Assembly with SPAdes (Illumina, but long reads are also accepted for hybrid assembly)
@@ -77,7 +77,7 @@ For full details on parameters, see comments in `config.sh`. For a visual unders
 ./daemon.sh i1        # Adapter trimming [OPTIONAL]
 ./daemon.sh i0 -r     # Repeat QC on processed short reads
 ./daemon.sh 7         # Polish assembly with short reads
-./daemon.sh 8         # Assess assembly quality
+./daemon.sh 10        # Assess assembly quality
 
 
 # Illumina and PacBio subread hybrid assembly
@@ -91,7 +91,7 @@ For full details on parameters, see comments in `config.sh`. For a visual unders
 ./daemon.sh i2        # Assemble with SPAdes
 ./daemon.sh 6         # Polish assembly
 ./daemon.sh 7         # Polish assembly with short reads
-./daemon.sh 8         # Assess assembly quality
+./daemon.sh 10        # Assess assembly quality
 
 
 # ONT assembly without short reads (WARNING: modules 0 and 1c do not work for ONT yet)
@@ -101,7 +101,7 @@ For full details on parameters, see comments in `config.sh`. For a visual unders
 ./daemon.sh 4         # Filter by length [OPTIONAL]
 ./daemon.sh 5a        # Assemble with Flye
 ./daemon.sh 6         # Polish assembly
-./daemon.sh 8         # Assess assembly quality
+./daemon.sh 10        # Assess assembly quality
 ```
 
 ## Contact
