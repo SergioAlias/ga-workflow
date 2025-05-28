@@ -16,7 +16,7 @@ for ((i=1; i<=RACON_ITER; i++)); do
 
     mkdir -p $ITER_DIR
 
-    $MINIMAP2_PATH/minimap2 -x map-pb \
+    $MINIMAP2_PATH/minimap2 -x map-$SEQ_TYPE \
                             -t $MINIMAP2_THREADS \
                             -o $ITER_DIR/minimap.racon.paf \
                             $CURRENT_ASSEMBLY \

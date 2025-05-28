@@ -7,12 +7,12 @@
 ## GLOBAL VARS ##
 ################################### 
 
-export STRAIN="CBS125086"                                            #-----#    Strain code, should be included in filenames
+export STRAIN="SP1_7"                                                #-----#    Strain code, should be included in filenames
 export PROJ_NAME="assembly_"$STRAIN                                  #-----#    Project directory name
 export WDIR="/mnt/data3/sergio_data3/scratch/projects/"$PROJ_NAME    #-----#    Project directory path
 export READ_PATH=$CODE_PATH"/pacbio"                                 #-----#    Path where long read samples were linked and renamed
-export ILLUMINA_PATH="/home/sergio/sergio_data3/ont_test_illumina"   #-----#    Path where Illumina samples were linked and renamed. Ignored if not used
-export SEQ_TYPE="ont"                                                #-----#    Long read sequencing technology. Valid choices: (pb, ont). Ignored for Illumina-only assembly 
+export ILLUMINA_PATH=$CODE_PATH"/illumina"                           #-----#    Path where Illumina samples were linked and renamed. Ignored if not used
+export SEQ_TYPE="pb"                                                 #-----#    Long read sequencing technology. Valid choices: (pb, ont). Ignored for Illumina-only assembly 
 
 ###################################
 ## DAEMON MODULES ##
@@ -48,7 +48,7 @@ export CCS_LOGLEVEL=WARN      #-----# Set log level. Valid choices: (TRACE, DEBU
 
 ######  MODULE 1c: ONT ADAPTER TRIMMING #######
 
-export PORECHOP_ACTIVATE=True                               #-----# True if you will run this module, False otherwise
+export PORECHOP_ACTIVATE=False                              #-----# True if you will run this module, False otherwise
 [ "$PORECHOP_ACTIVATE" == "True" ] && \
 export M1_OUT=$WDIR"/porechop"                              #-----# Porechop files outdir
 export PORECHOP_PATH="/home/sioly/applications/Porechop"    #-----# Porechop installation path
@@ -57,7 +57,7 @@ export PORECHOP_THREADS=8                                   #-----# Number of th
 
 ######  MODULE 2: MERGING FLOW CELLS #######
 
-export MERGE_ACTIVATE=False        #-----# True if you will run this module, False otherwise
+export MERGE_ACTIVATE=True         #-----# True if you will run this module, False otherwise
 export MERGE_OUT=$WDIR"/merged"    #-----# merging outdir
 
 [ "$CCS_ACTIVATE" != "True" ] && \
@@ -68,7 +68,7 @@ export M1_OUT=$READ_PATH          #-----# Changes input dir if module 1 is not p
 
 ######  MODULE 3: CONVERTING BAM FILES INTO FASTQ #######
 
-export BAM2FQ_ACTIVATE=False       #-----# True if you will run this module, False otherwise
+export BAM2FQ_ACTIVATE=True        #-----# True if you will run this module, False otherwise
 export BAM2FQ_OUT=$WDIR"/fastq"    #-----# FASTQ files outdir
 
 [ "$MERGE_ACTIVATE" != "True" ] && \
@@ -78,7 +78,7 @@ export MERGE_OUT=$M1_OUT          #-----#  Changes input dir if module 2 is not 
 ######  MODULE 4: LENGTH FILTERING #######
 
 export FASTPLONG_ACTIVATE=True                      #-----# True if you will run this module, False otherwise
-if [ "$SEQ_TYPE" == "pacbio" ]; then
+if [ "$SEQ_TYPE" == "pb" ]; then
     export FASTPLONG_OUT=$WDIR"/filtered_pacbio"    #-----# Fastplong outdir for PacBio reads
 elif [ "$SEQ_TYPE" == "ont" ]; then
     export FASTPLONG_OUT=$WDIR"/filtered_ont"       #-----# Fastplong outdir for ONT reads
@@ -101,7 +101,7 @@ export FLYE_OUT=$WDIR"/flye"          #-----# Flye outdir
 
 if [ "$CCS_ACTIVATE" == "True" ]; then
     export FLYE_TYPE="pacbio-hifi"    #-----# HiFi option if CCS were obtained...
-elif [ "$PORECHOP_ACTIVATE" == "True" ]; then
+elif [ "$SEQ_TYPE" == "ont" ]; then
     export FLYE_TYPE="nano-hq"        #-----# ... ONT option...
 else
     export FLYE_TYPE="pacbio-raw"     #-----# ... or PacBio raw subread option otherwise
@@ -123,7 +123,7 @@ export MINIASM_PATH="/home/sioly/applications/miniasm"      #-----# Miniasm inst
 ######  MODULE 6: ASSEMBLY POLISHING WITH RACON #######
 
 export RACON_ACTIVATE=True                                      #-----# True if you will run this module, False otherwise
-export RACON_ASSEMBLY="minimap2_miniasm"                        #-----# Assembly to polish. Valid choices: (flye, minimap2_miniasm, spades)
+export RACON_ASSEMBLY="spades_hybrid"                           #-----# Assembly to polish. Valid choices: (flye, minimap2_miniasm, spades, spades_hybrid)
 export RACON_OUT=$WDIR"/racon"                                  #-----# Racon outdir
 export RACON_PATH="/home/sioly/applications/racon/build/bin"    #-----# Racon installation path
 export RACON_THREADS=15                                         #-----# Number of threads to use [default: 1]
@@ -132,7 +132,7 @@ export RACON_ITER=3                                             #-----# Number o
 
 ######  MODULE 7: ASSEMBLY POLISHING WITH PILON #######
 
-export PILON_ASSEMBLY="minimap2_miniasm"                          #-----# Assembly to polish. Valid choices: (flye, minimap2_miniasm, spades)
+export PILON_ASSEMBLY="minimap2_miniasm"                          #-----# Assembly to polish. Valid choices: (flye, minimap2_miniasm, spades, spades_hybrid)
 
 if [ "$RACON_ACTIVATE" == "True" ]; then
     export PILON_IN=$RACON_OUT/$PILON_ASSEMBLY"/iter_"$RACON_ITER/$PILON_ASSEMBLY"_racon_"$RACON_ITER".fasta"    #-----# Assembly file if Racon was used
