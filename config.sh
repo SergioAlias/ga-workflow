@@ -147,7 +147,7 @@ export PILON_RAM=70                                               #-----# RAM li
 export PILON_ITER=5                                               #-----# Number of polishing iterations
 
 
-######  MODULE 8: ASSEMBLY QUALITY #######
+######  MODULE 10: ASSEMBLY QUALITY #######
 
 export QUAST_OUT=$WDIR"/quast"                              #-----# QUAST outdir
 export QUAST_PATH="/home/sioly/applications/quast.5.2.0"    #-----# QUAST installation path

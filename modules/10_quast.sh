@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 08_quast.sh
+# 10_quast.sh
 
 # Sergio Alías-Segura
 
