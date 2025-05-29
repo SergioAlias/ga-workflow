@@ -4,7 +4,7 @@
 
 # Sergio Alías-Segura
 
-mkdir -p $PILON_OUT/$PILON_ASSEMBLY
+mkdir -p $PILON_OUT/$ASSEMBLY_TARGET
 
 ILLUMINA_F=$CUTADAPT_OUT/$(ls "$CUTADAPT_OUT" | grep "${STRAIN}_1")
 ILLUMINA_R=$CUTADAPT_OUT/$(ls "$CUTADAPT_OUT" | grep "${STRAIN}_2")
@@ -15,7 +15,7 @@ for ((i=1; i<=PILON_ITER; i++)); do
 
     echo "Iteration $i / $PILON_ITER"
 
-    ITER_DIR=$PILON_OUT/$PILON_ASSEMBLY"/iter_"$i
+    ITER_DIR=$PILON_OUT/$ASSEMBLY_TARGET"/iter_"$i
 
     mkdir -p $ITER_DIR
     
@@ -42,11 +42,11 @@ for ((i=1; i<=PILON_ITER; i++)); do
 
     java -Xmx${PILON_RAM}G -jar $PILON_JAR --genome $CURRENT_ASSEMBLY \
                                            --bam $ITER_DIR/bwamem_sorted.bam \
-                                           --output $PILON_ASSEMBLY"_pilon_"$i \
+                                           --output $ASSEMBLY_TARGET"_pilon_"$i \
                                            --outdir $ITER_DIR \
                                            --threads $PILON_THREADS \
                                            --fix all
 
-    CURRENT_ASSEMBLY=$ITER_DIR/$PILON_ASSEMBLY"_pilon_"$i".fasta"
+    CURRENT_ASSEMBLY=$ITER_DIR/$ASSEMBLY_TARGET"_pilon_"$i".fasta"
 
 done

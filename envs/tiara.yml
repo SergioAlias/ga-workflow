@@ -1,0 +1,6 @@
+name: tiara
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - tiara=1.0.3

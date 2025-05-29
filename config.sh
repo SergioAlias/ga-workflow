@@ -10,6 +10,7 @@
 export STRAIN="SP1_7"                                                #-----#    Strain code, should be included in filenames
 export PROJ_NAME="assembly_"$STRAIN                                  #-----#    Project directory name
 export WDIR="/mnt/data3/sergio_data3/scratch/projects/"$PROJ_NAME    #-----#    Project directory path
+export SCRIPTS=$CODE_PATH"/scripts"                                  #-----#    Custom scripts path
 export READ_PATH=$CODE_PATH"/pacbio"                                 #-----#    Path where long read samples were linked and renamed
 export ILLUMINA_PATH=$CODE_PATH"/illumina"                           #-----#    Path where Illumina samples were linked and renamed. Ignored if not used
 export SEQ_TYPE="pb"                                                 #-----#    Long read sequencing technology. Valid choices: (pb, ont). Ignored for Illumina-only assembly 
@@ -92,7 +93,8 @@ export BAM2FQ_OUT=$MERGE_OUT          #-----#  Changes input dir if module 2 is 
 ######  MODULE 5: ASSEMBLIES #######
 
 [ "$FASTPLONG_ACTIVATE" != "True" ] && \
-export FASTPLONG_OUT=$BAM2FQ_OUT    #-----#  Changes input dir if module 4 is not performed
+export FASTPLONG_OUT=$BAM2FQ_OUT          #-----#  Changes input dir if module 4 is not performed
+export ASSEMBLY_TARGET="spades_hybrid"    #-----#  Assembly we will polish. Valid choices: (flye, minimap2_miniasm, spades, spades_hybrid)
 
 
 ######  MODULE 5a: ASSEMBLY WITH FLYE #######
@@ -123,7 +125,6 @@ export MINIASM_PATH="/home/sioly/applications/miniasm"      #-----# Miniasm inst
 ######  MODULE 6: ASSEMBLY POLISHING WITH RACON #######
 
 export RACON_ACTIVATE=True                                      #-----# True if you will run this module, False otherwise
-export RACON_ASSEMBLY="spades_hybrid"                           #-----# Assembly to polish. Valid choices: (flye, minimap2_miniasm, spades, spades_hybrid)
 export RACON_OUT=$WDIR"/racon"                                  #-----# Racon outdir
 export RACON_PATH="/home/sioly/applications/racon/build/bin"    #-----# Racon installation path
 export RACON_THREADS=15                                         #-----# Number of threads to use [default: 1]
@@ -132,12 +133,12 @@ export RACON_ITER=3                                             #-----# Number o
 
 ######  MODULE 7: ASSEMBLY POLISHING WITH PILON #######
 
-export PILON_ASSEMBLY="minimap2_miniasm"                          #-----# Assembly to polish. Valid choices: (flye, minimap2_miniasm, spades, spades_hybrid)
+export PILON_ACTIVATE=True                                        #-----# True if you will run this module, False otherwise
 
 if [ "$RACON_ACTIVATE" == "True" ]; then
-    export PILON_IN=$RACON_OUT/$PILON_ASSEMBLY"/iter_"$RACON_ITER/$PILON_ASSEMBLY"_racon_"$RACON_ITER".fasta"    #-----# Assembly file if Racon was used
+    export PILON_IN=$RACON_OUT/$ASSEMBLY_TARGET"/iter_"$RACON_ITER/$ASSEMBLY_TARGET"_racon_"$RACON_ITER".fasta"    #-----# Assembly file if Racon was used
 else
-    export PILON_IN=$WDIR/$PILON_ASSEMBLY/$PILON_ASSEMBLY".fasta"                                                #-----# Assembly file otherwise
+    export PILON_IN=$WDIR/$ASSEMBLY_TARGET/$ASSEMBLY_TARGET".fasta"                                                #-----# Assembly file otherwise
 fi
 
 export PILON_OUT=$WDIR"/pilon"                                    #-----# Pilon outdir
@@ -145,6 +146,26 @@ export PILON_JAR="/home/sioly/applications/bin/pilon-1.24.jar"    #-----# Pilon 
 export PILON_THREADS=8                                            #-----# Number of threads to use [default: 1]
 export PILON_RAM=70                                               #-----# RAM limit for Pilon in Gb
 export PILON_ITER=5                                               #-----# Number of polishing iterations
+
+
+######  MODULE 8: CONTAMINATION CHECK #######
+
+export CONTAM_OUT=$WDIR"/contam"    #-----# Contamination check outdir
+export CONTAM_TAXID="31870"         #-----# NCBI taxon ID of the species. Examples: Colletotrichum graminicola, 31870; Fusarium flocciferum, 56642
+
+if [ "$PILON_ACTIVATE" == "True" ]; then
+    export CONTAM_IN=$PILON_OUT/$ASSEMBLY_TARGET"/iter_"$PILON_ITER/$ASSEMBLY_TARGET"_pilon_"$PILON_ITER".fasta"    #-----# Assembly file if Pilon was used
+else
+    export CONTAM_IN=$PILON_IN                                                                                      #-----# Assembly file otherwise
+fi   
+
+
+######  MODULE 9: MITOCHONDRIAL CONTIGS DETECTION #######
+
+export MITO_OUT=$WDIR"/tiara"    #-----# Mitochondrial contigs detection outdir
+export MITO_THREADS=4            #-----# Number of threads to use
+export MITO_PCUTOFF_1=0.65       #-----# Probability threshold needed for classification to a class in the first stage [default: 0.65]
+export MITO_PCUTOFF_2=0.65       #-----# Probability threshold needed for classification to a class in the second stage [default: 0.65]
 
 
 ######  MODULE 10: ASSEMBLY QUALITY #######

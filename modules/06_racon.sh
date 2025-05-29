@@ -4,15 +4,15 @@
 
 # Sergio Alías-Segura
 
-mkdir -p $RACON_OUT/$RACON_ASSEMBLY
+mkdir -p $RACON_OUT/$ASSEMBLY_TARGET
 
-CURRENT_ASSEMBLY=$WDIR/$RACON_ASSEMBLY/$RACON_ASSEMBLY".fasta"
+CURRENT_ASSEMBLY=$WDIR/$ASSEMBLY_TARGET/$ASSEMBLY_TARGET".fasta"
 
 for ((i=1; i<=RACON_ITER; i++)); do
 
     echo "Iteration $i / $RACON_ITER"
 
-    ITER_DIR=$RACON_OUT/$RACON_ASSEMBLY"/iter_"$i
+    ITER_DIR=$RACON_OUT/$ASSEMBLY_TARGET"/iter_"$i
 
     mkdir -p $ITER_DIR
 
@@ -22,7 +22,7 @@ for ((i=1; i<=RACON_ITER; i++)); do
                             $CURRENT_ASSEMBLY \
                             $FASTPLONG_OUT/$STRAIN".fastq"
 
-    NEXT_ASSEMBLY=$ITER_DIR/$RACON_ASSEMBLY"_racon_"$i".fasta"
+    NEXT_ASSEMBLY=$ITER_DIR/$ASSEMBLY_TARGET"_racon_"$i".fasta"
 
     $RACON_PATH/racon $FASTPLONG_OUT/$STRAIN".fastq" \
                       $ITER_DIR/minimap.racon.paf \

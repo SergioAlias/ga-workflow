@@ -9,7 +9,7 @@
 
 # Usage: ./daemon.sh [module-number] [-r]
 
-if ! [[ "$1" =~ ^(0|1a|1b|1c|2|3|4|5a|5b|6|7|10|i0|i1|i2)$ ]]; then
+if ! [[ "$1" =~ ^(0|1a|1b|1c|2|3|4|5a|5b|6|7|8|9|10|i0|i1|i2)$ ]]; then
   echo "Warning: No module number specified. Usage: ./daemon.sh [module-number] [-r]"
   exit 1
 fi
@@ -116,7 +116,21 @@ elif [ "$module" == "7" ] ; then
     printf "Launching module 7: Assembly polishing with Pilon\n\n" | tee -a "$LOGPATH"/"$LOGFILE"
     printf -- "--------------------\n\n" | tee -a "$LOGPATH"/"$LOGFILE" 
     { time 07_pilon.sh; } 2>&1 | tee -a "$LOGPATH"/"$LOGFILE"
-    printf "\nLogfile: $LOGFILE\n" 
+    printf "\nLogfile: $LOGFILE\n"
+
+elif [ "$module" == "8" ] ; then
+    # MODULE 8: CONTAMINATION CHECK
+    printf "Launching module 8: Contamination check\n\n" | tee -a "$LOGPATH"/"$LOGFILE"
+    printf -- "--------------------\n\n" | tee -a "$LOGPATH"/"$LOGFILE" 
+    { time 08_contam.sh; } 2>&1 | tee -a "$LOGPATH"/"$LOGFILE"
+    printf "\nLogfile: $LOGFILE\n"
+
+elif [ "$module" == "9" ] ; then
+    # MODULE 9: MITOCHONDRIAL CONTIGS DETECTION
+    printf "Launching module 9: Mitochondrial contigs detection\n\n" | tee -a "$LOGPATH"/"$LOGFILE"
+    printf -- "--------------------\n\n" | tee -a "$LOGPATH"/"$LOGFILE" 
+    { time 09_mito.sh; } 2>&1 | tee -a "$LOGPATH"/"$LOGFILE"
+    printf "\nLogfile: $LOGFILE\n"  
 
 elif [ "$module" == "10" ] ; then
     # MODULE 10: ASSEMBLY QUALITY

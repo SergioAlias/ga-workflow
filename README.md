@@ -28,7 +28,7 @@ For programs that require a Conda environment, I highly recommend installing [Mi
 ./daemon.sh N
 ```
 
-Replace `N` with the module number you want to run (`0`, `1a`, `1b`, `1c`, `2`, `3`, `4`, `5a`, `5b`, `6`, `7`, `10`, `i1`, `i2`).
+Replace `N` with the module number you want to run (`0`, `1a`, `1b`, `1c`, `2`, `3`, `4`, `5a`, `5b`, `6`, `7`, `8`, `9`, `10`, `i0`, `i1`, `i2`).
 
 For modules **0** (LongQC) and **i0** (FastQC), you can use the optional `-r` flag:
 
@@ -36,7 +36,7 @@ For modules **0** (LongQC) and **i0** (FastQC), you can use the optional `-r` fl
 ./daemon.sh 0 -r
 ./daemon.sh i0 -r
 ```
-The `-r` flag indicates that QC should be repeated after running module 1a/1b (long reads) or i1 (short reads), to check the quality of processed reads. For other modules, the `-r` flag is ignored.
+The `-r` flag indicates that QC should be repeated after running module 1a/1b/1c (long reads) or i1 (short reads), to check the quality of processed reads. For other modules, the `-r` flag is ignored.
 
 ## Workflow Modules
 
@@ -52,6 +52,8 @@ Each module is run separately through the `daemon.sh` controller. Modules are:
 - **5b**: Assembly with Minimap2 and Miniasm
 - **6**: Assembly Polishing with Racon
 - **7**: Assembly Polishing with short reads with Pilon
+- **8**: Contamination check with NCBI BLAST
+- **9**: Mitochondrial contigs detection
 - **10**: Assembly Quality with QUAST
 - **i0**: FastQC (Illumina)
 - **i1**: Cutadapt (Illumina)
@@ -77,6 +79,8 @@ For full details on parameters, see comments in `config.sh`. For a visual unders
 ./daemon.sh i1        # Adapter trimming [OPTIONAL]
 ./daemon.sh i0 -r     # Repeat QC on processed short reads
 ./daemon.sh 7         # Polish assembly with short reads
+./daemon.sh 8         # Check contamination
+./daemon.sh 9         # Detect mitochondrial contigs
 ./daemon.sh 10        # Assess assembly quality
 
 
@@ -91,6 +95,8 @@ For full details on parameters, see comments in `config.sh`. For a visual unders
 ./daemon.sh i2        # Assemble with SPAdes
 ./daemon.sh 6         # Polish assembly
 ./daemon.sh 7         # Polish assembly with short reads
+./daemon.sh 8         # Check contamination
+./daemon.sh 9         # Detect mitochondrial contigs
 ./daemon.sh 10        # Assess assembly quality
 
 
@@ -101,6 +107,8 @@ For full details on parameters, see comments in `config.sh`. For a visual unders
 ./daemon.sh 4         # Filter by length [OPTIONAL]
 ./daemon.sh 5a        # Assemble with Flye
 ./daemon.sh 6         # Polish assembly
+./daemon.sh 8         # Check contamination
+./daemon.sh 9         # Detect mitochondrial contigs
 ./daemon.sh 10        # Assess assembly quality
 ```
 
