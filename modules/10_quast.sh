@@ -21,6 +21,10 @@ for f in "$PILON_OUT"/*/*/*.fasta; do
     [ -e "$f" ] && [ ! -L "$f" ] && QUAST_IN+="$f "
 done
 
+for f in "$MITO_OUT"/no_mito_*.fasta; do
+    [ -e "$f" ] && [ ! -L "$f" ] && QUAST_IN+="$f "
+done
+
 QUAST_IN=$(echo "$QUAST_IN" | xargs)
 
 mkdir -p $QUAST_OUT

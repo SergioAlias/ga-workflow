@@ -26,3 +26,25 @@ if [[ "$ACTIVATED_ENV" -eq 1 ]]; then
     conda deactivate
 fi
 
+ONLY_MITO_FILE="$MITO_OUT/mitochondrion_$(basename "${CONTAM_IN%.*}").fasta"
+NO_MITO_FILE="$MITO_OUT/no_mito_$(basename "${CONTAM_IN%.*}").fasta"
+
+grep '^>' "$ONLY_MITO_FILE" | sed 's/^>//' > "$MITO_OUT/tmp_mito_ids.txt"
+
+awk -v ids="$MITO_OUT/tmp_mito_ids.txt" '
+    BEGIN {
+        while ((getline line < ids) > 0) {
+            mito[line] = 1
+        }
+    }
+    /^>/ {
+        header = $0
+        seq_id = substr($0, 2)
+        print_seq = !(seq_id in mito)
+    }
+    {
+        if (print_seq) print
+    }
+' "$CONTAM_IN" > "$NO_MITO_FILE"
+
+rm "$MITO_OUT/tmp_mito_ids.txt"
