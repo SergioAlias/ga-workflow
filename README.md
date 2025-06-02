@@ -1,6 +1,6 @@
-# Fungal Genome Assembly Workflow 🧬🍄
+# Fungal Genome Assembly and Annotation Workflow 🧬🍄
 
-This repository provides a modular, bash-based workflow for fungal genome assembly using PacBio, ONT and/or Illumina reads.
+This repository provides a modular, bash-based workflow for fungal genome assembly and annotation using PacBio, ONT and/or Illumina reads.
 
 <img src="./img/workflow.png">
 

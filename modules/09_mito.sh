@@ -27,7 +27,6 @@ if [[ "$ACTIVATED_ENV" -eq 1 ]]; then
 fi
 
 ONLY_MITO_FILE="$MITO_OUT/mitochondrion_$(basename "${CONTAM_IN%.*}").fasta"
-NO_MITO_FILE="$MITO_OUT/no_mito_$(basename "${CONTAM_IN%.*}").fasta"
 
 grep '^>' "$ONLY_MITO_FILE" | sed 's/^>//' > "$MITO_OUT/tmp_mito_ids.txt"
 

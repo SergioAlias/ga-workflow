@@ -162,10 +162,11 @@ fi
 
 ######  MODULE 9: MITOCHONDRIAL CONTIGS DETECTION #######
 
-export MITO_OUT=$WDIR"/tiara"    #-----# Mitochondrial contigs detection outdir
-export MITO_THREADS=4            #-----# Number of threads to use
-export MITO_PCUTOFF_1=0.65       #-----# Probability threshold needed for classification to a class in the first stage [default: 0.65]
-export MITO_PCUTOFF_2=0.65       #-----# Probability threshold needed for classification to a class in the second stage [default: 0.65]
+export MITO_OUT=$WDIR"/tiara"                                                  #-----# Mitochondrial contigs detection outdir
+export MITO_THREADS=4                                                          #-----# Number of threads to use
+export MITO_PCUTOFF_1=0.65                                                     #-----# Probability threshold needed for classification to a class in the first stage [default: 0.65]
+export MITO_PCUTOFF_2=0.65                                                     #-----# Probability threshold needed for classification to a class in the second stage [default: 0.65]
+export NO_MITO_FILE="$MITO_OUT/no_mito_$(basename "${CONTAM_IN%.*}").fasta"    #-----# Assembly outfile without mitochondrial contig(s)
 
 
 ######  MODULE 10: ASSEMBLY QUALITY #######
@@ -173,6 +174,18 @@ export MITO_PCUTOFF_2=0.65       #-----# Probability threshold needed for classi
 export QUAST_OUT=$WDIR"/quast"                              #-----# QUAST outdir
 export QUAST_PATH="/home/sioly/applications/quast.5.2.0"    #-----# QUAST installation path
 export QUAST_THREADS=8                                      #-----# Number of threads to use
+
+
+######  MODULE 11a: ANNOTATION WITH FUNANNOTATE #######
+
+export FUNANN_OUT=$WDIR"/funannotate"    #-----# Funannotate outdir
+export FUNANN_CLEAN_PIDENT=95            #-----# Clean: percent identity of overlap [default: 95]
+export FUNANN_CLEAN_COV=95               #-----# Clean: percent coverage of overlap [default: 95]
+export FUNANN_CLEAN_MINLEN=500           #-----# Clean: minimum length of contig to keep [default: 500]
+export FUNANN_SORT_BASE="scaffold"       #-----# Sort: base name to relabel contigs [default: scaffold]
+export FUNANN_SORT_MINLEN=0              #-----# Sort: shorter contigs are discarded [default: 0]
+export FUNANN_MASK_CPUS=4                #-----# Mask: number of CPUs to use [default: 2]
+
 
 
 ######  MODULE i0: FASTQC #######

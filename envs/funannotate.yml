@@ -1,0 +1,7 @@
+name: funannotate
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - funannotate
