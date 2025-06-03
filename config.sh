@@ -178,15 +178,17 @@ export QUAST_THREADS=8                                      #-----# Number of th
 
 ######  MODULE 11a: ANNOTATION WITH FUNANNOTATE #######
 
-export FUNANN_OUT=$WDIR"/funannotate"    #-----# Funannotate outdir
-export FUNANN_CLEAN_PIDENT=95            #-----# Clean: percent identity of overlap [default: 95]
-export FUNANN_CLEAN_COV=95               #-----# Clean: percent coverage of overlap [default: 95]
-export FUNANN_CLEAN_MINLEN=500           #-----# Clean: minimum length of contig to keep [default: 500]
-export FUNANN_SORT_BASE="scaffold"       #-----# Sort: base name to relabel contigs [default: scaffold]
-export FUNANN_SORT_MINLEN=0              #-----# Sort: shorter contigs are discarded [default: 0]
-export FUNANN_MASK_CPUS=4                #-----# Mask: number of CPUs to use [default: 2]
-
-
+export FUNANNOTATE_DB="/mnt/data3/sergio_data3/funannotate_db"                          #-----# Directory where Funannotate databases will be stored (variable name fixed by Funannotate)
+export FUNANN_OUT=$WDIR"/funannotate"                                                   #-----# Funannotate outdir
+export FUNANN_CLEAN_PIDENT=95                                                           #-----# Clean: percent identity of overlap [default: 95]
+export FUNANN_CLEAN_COV=95                                                              #-----# Clean: percent coverage of overlap [default: 95]
+export FUNANN_CLEAN_MINLEN=500                                                          #-----# Clean: minimum length of contig to keep [default: 500]
+export FUNANN_SORT_BASE="scaffold"                                                      #-----# Sort: base name to relabel contigs [default: scaffold]
+export FUNANN_SORT_MINLEN=0                                                             #-----# Sort: shorter contigs are discarded [default: 0]
+export FUNANN_MASK_CPUS=4                                                               #-----# Mask: number of CPUs to use [default: 2]
+export FUNANN_PREDICT_SPECIES="Fusarium_flocciferum"                                    #-----# Predict: species name (use quotes for binomial)
+export FUNANN_PREDICT_EVIDENCE_PATH="/mnt/data3/sergio_data3/evidence"                  #-----# Predict: path where evidence files are stored
+export FUNANN_PREDICT_TRANS_EVIDENCE="Fustr1_EST_20180511_cluster_consensi.fasta.gz"    #-----# Predict:
 
 ######  MODULE i0: FASTQC #######
 
