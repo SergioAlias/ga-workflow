@@ -17,6 +17,19 @@ You **must check and update the paths for all required software in `config.sh`**
 
 For programs that require a Conda environment, I highly recommend installing [Miniconda](https://docs.anaconda.com/free/miniconda/index.html) and then installing [Mamba](https://anaconda.org/conda-forge/mamba) for a lightweight and fast experience. I provide YAML files under `/envs` to create all neccesary environments with `mamba env create -f <file.yml>`. Check module code and `config.sh` to know if you need a Conda environment for that one.
 
+There is only one Conda environment for which I do not provide a YAML file: the one for module 11a (annotation with Funannotate). Since both Conda and Mamba fail to resolve this environment, I strongly recommend creating it manually with:
+
+```bash
+mamba create -n funannotate "python>=3.6,<3.9" funannotate
+```
+
+Also, if you want to use GeneMark-ES/ET within Funannotate, please note that a license key is now required. If you are affiliated with an academic or non-profit institution, or a U.S. government agency, you can obtain it for free. You will need to manually download both the program and the license key from http://topaz.gatech.edu/GeneMark/license_download.cgi. After downloading, extract the `gmes_linux_64_4.tar.gz` file to your desired location and follow the instructions provided in the `INSTALL` text file. Here's a brief summary:
+
+```bash
+gunzip gm_key_64.gz
+cp gm_key_64 ~/.gm_key
+perl change_path_in_perl_scripts.pl '/usr/bin/env perl'
+```
 
 ## How to run the workflow
 
