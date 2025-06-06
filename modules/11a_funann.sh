@@ -20,7 +20,7 @@ cd $FUNANN_OUT
 CLEAN_OUT="$FUNANN_OUT/$(basename "${NO_MITO_FILE%.*}")_clean.fasta"
 SORT_OUT="$FUNANN_OUT/$(basename "${NO_MITO_FILE%.*}")_sort.fasta"
 MASK_OUT="$FUNANN_OUT/$(basename "${NO_MITO_FILE%.*}")_mask.fasta"
-PREDICT_OUT="$FUNANN_OUT/predict"
+PREDICT_OUT=$FUNANN_OUT"/predict/predict_results/"$FUNANN_PREDICT_SPECIES"_"$STRAIN".gff3"
 
 if [ ! -f "$CLEAN_OUT" ]; then
     echo "funnanotate clean..."
@@ -60,7 +60,7 @@ else
     echo "Skipping setup: $FUNANNOTATE_DB already exists"
 fi
 
-if [ ! -d "$PREDICT_OUT" ]; then # TODO change to any outfile
+if [ ! -f "$PREDICT_OUT" ]; then # TODO change to any outfile
     echo "funnanotate predict..."
     funannotate predict --input $MASK_OUT \
                         --out $PREDICT_OUT \
