@@ -60,7 +60,7 @@ else
     echo "Skipping setup: $FUNANNOTATE_DB already exists"
 fi
 
-if [ ! -f "$PREDICT_OUT" ]; then # TODO change to any outfile
+if [ ! -f "$PREDICT_OUT" ]; then
     echo "funnanotate predict..."
     funannotate predict --input $MASK_OUT \
                         --out $PREDICT_OUT \
