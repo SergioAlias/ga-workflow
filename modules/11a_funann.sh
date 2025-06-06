@@ -4,7 +4,7 @@
 
 # Sergio Alías-Segura
 
-CONDA_ENV="funannotate"
+CONDA_ENV="funannotate" # mamba create -n funannotate "python>=3.6,<3.9" funannotate
 ACTIVATED_ENV=0
 if [[ "$CONDA_DEFAULT_ENV" != "$CONDA_ENV" ]]; then
     source ~/miniconda3/etc/profile.d/conda.sh
@@ -21,6 +21,7 @@ CLEAN_OUT="$FUNANN_OUT/$(basename "${NO_MITO_FILE%.*}")_clean.fasta"
 SORT_OUT="$FUNANN_OUT/$(basename "${NO_MITO_FILE%.*}")_sort.fasta"
 MASK_OUT="$FUNANN_OUT/$(basename "${NO_MITO_FILE%.*}")_mask.fasta"
 PREDICT_OUT=$FUNANN_OUT"/predict/predict_results/"$FUNANN_PREDICT_SPECIES"_"$STRAIN".gff3"
+IPRSCAN_OUT=$FUNANN_OUT"/ipscan_"$FUNANN_PREDICT_SPECIES"_"$STRAIN".xml"
 
 if [ ! -f "$CLEAN_OUT" ]; then
     echo "funnanotate clean..."
@@ -63,13 +64,36 @@ fi
 if [ ! -f "$PREDICT_OUT" ]; then
     echo "funnanotate predict..."
     funannotate predict --input $MASK_OUT \
-                        --out $PREDICT_OUT \
+                        --out $FUNANN_OUT"/predict" \
                         --species $FUNANN_PREDICT_SPECIES \
                         --isolate $STRAIN \
                         --transcript_evidence $FUNANN_PREDICT_EVIDENCE_PATH/$FUNANN_PREDICT_TRANS_EVIDENCE
 else
     echo "Skipping predict: $PREDICT_OUT already exists"
 fi
+
+if [ ! -f "$IPRSCAN_OUT" ]; then
+    echo "funnanotate iprscan..."
+    funannotate iprscan --input $FUNANN_OUT"/predict" \
+                        --method local \
+                        --num $FUNANN_IPRSCAN_NUM \
+                        --out $IPRSCAN_OUT \
+                        --iprscan_path $FUNANN_IPRSCAN_PATH \
+                        --cpus $FUNANN_IPRSCAN_CPUS
+else
+    echo "Skipping predict: $IPRSCAN_OUT already exists"
+fi
+
+
+    echo "run antiSMASH with funannotate remote..." # TODO add --out and if-else when output folder is known
+    funannotate remote --input $FUNANN_OUT"/predict" \
+                       --methods antismash \
+                       --email $FUNANN_REMOTE_EMAIL
+
+    echo "funannotate annotate..." # TODO add if-else
+    funannotate annotate --input $FUNANN_OUT"/predict" \
+                         --cpus $FUNANN_ANNOTATE_CPUS
+
 
 if [[ "$ACTIVATED_ENV" -eq 1 ]]; then
     conda deactivate

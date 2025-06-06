@@ -180,6 +180,7 @@ export QUAST_THREADS=8                                      #-----# Number of th
 
 export FUNANNOTATE_DB="/mnt/data3/sergio_data3/funannotate_db"                       #-----# Directory where Funannotate databases will be stored (variable name fixed by Funannotate)
 export GENEMARK_PATH="/home/sergio/bin/gmes_linux_64_4"                              #-----# GeneMark-ES/ET directory, where gmes_petap.pl is located (variable name fixed by Funannotate)
+
 export FUNANN_OUT=$WDIR"/funannotate"                                                #-----# Funannotate outdir
 export FUNANN_CLEAN_PIDENT=95                                                        #-----# Clean: percent identity of overlap [default: 95]
 export FUNANN_CLEAN_COV=95                                                           #-----# Clean: percent coverage of overlap [default: 95]
@@ -190,6 +191,12 @@ export FUNANN_MASK_CPUS=4                                                       
 export FUNANN_PREDICT_SPECIES="Fusarium_flocciferum"                                 #-----# Predict: species name (use quotes for binomial)
 export FUNANN_PREDICT_EVIDENCE_PATH="/mnt/data3/sergio_data3/evidence"               #-----# Predict: path where evidence files are stored
 export FUNANN_PREDICT_TRANS_EVIDENCE="Fustr1_EST_20180511_cluster_consensi.fasta"    #-----# Predict: mRNA/ESTs files to align to genome (not compressed)
+export FUNANN_IPRSCAN_NUM=1000                                                       #-----# Iprscan: Number of FASTA files per chunk [default: 1000]
+export FUNANN_IPRSCAN_PATH="/opt/interproscan/interproscan.sh"                       #-----# Iprscan: Path to interproscan.sh
+export FUNANN_IPRSCAN_CPUS=2                                                         #-----# Iprscan: Number of InterProScan instances to run
+export FUNANN_REMOTE_EMAIL=$(<~/email)                                               #-----# Remote: Email address to identify yourself to services (I store mine on ~/email but you can directly type it here)
+export FUNANN_ANNOTATE_CPUS=8                                                        #-----# Annotate: Number of CPUs to use [default: 2]
+
 
 ######  MODULE i0: FASTQC #######
 
