@@ -22,6 +22,8 @@ SORT_OUT="$FUNANN_OUT/$(basename "${NO_MITO_FILE%.*}")_sort.fasta"
 MASK_OUT="$FUNANN_OUT/$(basename "${NO_MITO_FILE%.*}")_mask.fasta"
 PREDICT_OUT=$FUNANN_OUT"/predict/predict_results/"$FUNANN_PREDICT_SPECIES"_"$STRAIN".gff3"
 IPRSCAN_OUT=$FUNANN_OUT"/ipscan_"$FUNANN_PREDICT_SPECIES"_"$STRAIN".xml"
+ANTISMASH_OUT=$FUNANN_OUT"/antismash/antismash_"$FUNANN_PREDICT_SPECIES"_"$STRAIN".gbk"
+ANNOTATE_OUT=$FUNANN_OUT"/predict/annotate_results/"$FUNANN_PREDICT_SPECIES"_"$STRAIN".annotations.txt"
 
 if [ ! -f "$CLEAN_OUT" ]; then
     echo "funnanotate clean..."
@@ -84,15 +86,30 @@ else
     echo "Skipping predict: $IPRSCAN_OUT already exists"
 fi
 
+if [ ! -f "$ANTISMASH_OUT" ]; then
+    echo "run antiSMASH..."
+    source ~/miniconda3/etc/profile.d/conda.sh
+    conda activate antismash
+    antismash --taxon fungi \
+              --cpus $FUNANN_ANTISMASH_CPUS \
+              --output-dir $FUNANN_OUT/antismash \
+              --output-basename "antismash_"$FUNANN_PREDICT_SPECIES"_"$STRAIN \
+              --genefinding-tool none \
+              $FUNANN_OUT"/predict/predict_results/"$FUNANN_PREDICT_SPECIES"_"$STRAIN".gbk"
+    conda deactivate
+else
+    echo "Skipping antiSMASH: $ANTISMASH_OUT already exists"
+fi
 
-    echo "run antiSMASH with funannotate remote..." # TODO add --out and if-else when output folder is known
-    funannotate remote --input $FUNANN_OUT"/predict" \
-                       --methods antismash \
-                       --email $FUNANN_REMOTE_EMAIL
-
-    echo "funannotate annotate..." # TODO add if-else
+if [ ! -f "$ANNOTATE_OUT" ]; then
+    echo "funannotate annotate..."
     funannotate annotate --input $FUNANN_OUT"/predict" \
+                         --iprscan $IPRSCAN_OUT \
+                         --antismash $ANTISMASH_OUT \
                          --cpus $FUNANN_ANNOTATE_CPUS
+else
+    echo "Skipping annotate: $ANNOTATE_OUT already exists"
+fi
 
 
 if [[ "$ACTIVATED_ENV" -eq 1 ]]; then

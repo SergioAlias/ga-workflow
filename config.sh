@@ -194,8 +194,16 @@ export FUNANN_PREDICT_TRANS_EVIDENCE="Fustr1_EST_20180511_cluster_consensi.fasta
 export FUNANN_IPRSCAN_NUM=1000                                                       #-----# Iprscan: Number of FASTA files per chunk [default: 1000]
 export FUNANN_IPRSCAN_PATH="/opt/interproscan/interproscan.sh"                       #-----# Iprscan: Path to interproscan.sh
 export FUNANN_IPRSCAN_CPUS=2                                                         #-----# Iprscan: Number of InterProScan instances to run
-export FUNANN_REMOTE_EMAIL=$(<~/email)                                               #-----# Remote: Email address to identify yourself to services (I store mine on ~/email but you can directly type it here)
+export FUNANN_ANTISMASH_CPUS=8                                                       #-----# antiSMASH: How many CPUs to use in parallel [default: all CPUs]
 export FUNANN_ANNOTATE_CPUS=8                                                        #-----# Annotate: Number of CPUs to use [default: 2]
+export FUNANN_COMPARE_CPUS=4                                                         #-----# Compare: Number of CPUs to use [default: 2]
+
+
+######  MODULE 12: ANNOTATION QUALITY #######
+
+export BUSCO_OUT=$WDIR"/busco"              #-----# BUSCO outdir
+export BUSCO_LINEAGE="hypocreales_odb10"    #-----# BUSCO lineage to be used
+export BUSCO_CPUS=4                         #-----# number of CPUs to use [default: 1]
 
 
 ######  MODULE i0: FASTQC #######

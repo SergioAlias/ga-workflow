@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Sergio Alías, 20250506
-# Last modified 20250528
+# Last modified 20250618
 
 # daemon.sh
 
@@ -9,7 +9,7 @@
 
 # Usage: ./daemon.sh [module-number] [-r]
 
-if ! [[ "$1" =~ ^(0|1a|1b|1c|2|3|4|5a|5b|6|7|8|9|10|11a|i0|i1|i2)$ ]]; then
+if ! [[ "$1" =~ ^(0|1a|1b|1c|2|3|4|5a|5b|6|7|8|9|10|11a|12|i0|i1|i2)$ ]]; then
   echo "Warning: No module number specified. Usage: ./daemon.sh [module-number] [-r]"
   exit 1
 fi
@@ -145,6 +145,13 @@ elif [ "$module" == "11a" ] ; then
     printf -- "--------------------\n\n" | tee -a "$LOGPATH"/"$LOGFILE" 
     { time 11a_funann.sh; } 2>&1 | tee -a "$LOGPATH"/"$LOGFILE"
     printf "\nLogfile: $LOGFILE\n"
+
+elif [ "$module" == "12" ] ; then
+    # MODULE 12: ANNOTATION QUALITY
+    printf "Launching module 12: Annotation quality\n\n" | tee -a "$LOGPATH"/"$LOGFILE"
+    printf -- "--------------------\n\n" | tee -a "$LOGPATH"/"$LOGFILE" 
+    { time 12_busco.sh; } 2>&1 | tee -a "$LOGPATH"/"$LOGFILE"
+    printf "\nLogfile: $LOGFILE\n" 
 
 elif [ "$module" == "i0" ] ; then
     # MODULE i0: FASTQC
