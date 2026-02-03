@@ -7,13 +7,15 @@
 ## GLOBAL VARS ##
 ################################### 
 
-export STRAIN="SP1_7"                                                #-----#    Strain code, should be included in filenames
-export PROJ_NAME="assembly_"$STRAIN                                  #-----#    Project directory name
-export WDIR="/mnt/data3/sergio_data3/scratch/projects/"$PROJ_NAME    #-----#    Project directory path
-export SCRIPTS=$CODE_PATH"/scripts"                                  #-----#    Custom scripts path
-export READ_PATH=$CODE_PATH"/pacbio"                                 #-----#    Path where long read samples were linked and renamed
-export ILLUMINA_PATH=$CODE_PATH"/illumina"                           #-----#    Path where Illumina samples were linked and renamed. Ignored if not used
-export SEQ_TYPE="pb"                                                 #-----#    Long read sequencing technology. Valid choices: (pb, ont). Ignored for Illumina-only assembly 
+export STRAIN="BMYC7B7"                                   #-----#    Strain code, should be included in filenames
+export PROJ_NAME="assembly_"$STRAIN                       #-----#    Project directory name
+export WDIR="/scratch/salias/projects/"$PROJ_NAME         #-----#    Project directory path
+export SCRIPTS=$CODE_PATH"/scripts"                       #-----#    Custom scripts path
+export DATA_PATH='/home/salias/data'                      #-----#    Global data path
+export READ_PATH=$CODE_PATH"/pacbio"                      #-----#    Path where long read samples were linked and renamed
+export ILLUMINA_PATH=$DATA_PATH"/mycoides_marta_links"    #-----#    Path where Illumina samples were linked and renamed. Ignored if not used
+export SEQ_TYPE="pb"                                      #-----#    Long read sequencing technology. Valid choices: (pb, ont). Ignored for Illumina-only assembly 
+
 
 ###################################
 ## DAEMON MODULES ##
@@ -208,7 +210,7 @@ export BUSCO_CPUS=4                         #-----# number of CPUs to use [defau
 
 ######  MODULE i0: FASTQC #######
 
-export FASTQC_THREADS=2                      #-----# Number of threads for FastQC. Recommended: 2
+# No config needed
 
 
 ######  MODULE i1: CUTADAPT #######
