@@ -1,5 +1,16 @@
 # Fungal Genome Assembly and Annotation Workflow 🧬🍄
 
+> ⚠️ **LEGACY SUPPORT NOTICE**
+> 
+> **Branch:** `legacy/odie_ciale`  
+> **Status:** maintenance
+>
+> This branch is dedicated to users working on the **Odie server** (Genetics Group, Institute for Agribiotechnology Research - CIALE) in Salamanca, Spain.
+>
+> The [main branch](https://github.com/SergioAlias/ga-workflow/tree/main) now contains breaking dependency changes that are **not compatible** with the Odie environment. This version is maintained as a separate branch to ensure compatibility.
+>
+> **To switch to this version:** -> `git checkout legacy/odie_ciale`
+
 This repository provides a modular, bash-based workflow for fungal genome assembly and annotation using PacBio, ONT and/or Illumina reads.
 
 <img src="./img/workflow.png">
