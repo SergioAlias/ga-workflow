@@ -225,6 +225,7 @@ export CUTADAPT_THREADS=2                                         #-----# Number
 ######  MODULE i2: ASSEMBLY WITH SPADES #######
 
 export SPADES_PATH="/home/salias/bin/SPAdes-4.2.0-Linux/bin"    #-----# SPAdes installation path
+export SPADES_MODE="isolate"                                    #-----# SPAdes running mode. Available options: False (no mode specified), isolate (high-coverage isolate and multi-cell Illumina data)
 export SPADES_HYBRID=False                                      #-----# True if you want to use long reads too, False otherwise
 
 if [ "$SPADES_HYBRID" == "True" ]; then

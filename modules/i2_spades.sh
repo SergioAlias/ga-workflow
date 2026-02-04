@@ -14,6 +14,8 @@ SPADES_IN+=(-1 $INPUT_F)
 SPADES_IN+=(-2 $INPUT_R)
 [[ $SPADES_HYBRID == "True" ]] && \
 SPADES_IN+=(--pacbio $FASTPLONG_OUT/$STRAIN".fastq")
+[[ $SPADES_MODE == "isolate" ]] && \
+SPADES_IN+=(--isolate)
 
 $SPADES_PATH/spades.py ${SPADES_IN[@]} \
                        -o $SPADES_OUT \
