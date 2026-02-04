@@ -4,6 +4,14 @@
 
 # Sergio Alías-Segura
 
+CONDA_ENV="quast"
+ACTIVATED_ENV=0
+if [[ "$CONDA_DEFAULT_ENV" != "$CONDA_ENV" ]]; then
+    source ~/miniconda3/etc/profile.d/conda.sh
+    conda activate "$CONDA_ENV"
+    ACTIVATED_ENV=1
+fi
+
 ASSEMBLY_DIRS=(flye minimap2_miniasm spades spades_hybrid)
 
 QUAST_IN=""
@@ -27,9 +35,14 @@ done
 
 QUAST_IN=$(echo "$QUAST_IN" | xargs)
 
+QUAST_OPTS=()
+
+[[ "$QUAST_GENOME" == "eukaryote" ]] && QUAST_OPTS+=(--eukaryote)
+[[ "$QUAST_GENOME" == "fungus" ]] && QUAST_OPTS+=(--fungus)
+
 mkdir -p $QUAST_OUT
 
-python3 $QUAST_PATH/quast.py -o $QUAST_OUT \
-                             --fungus \
-                             --threads $QUAST_THREADS \
-                             $QUAST_IN
+quast.py -o $QUAST_OUT \
+         "${QUAST_OPTS[@]}" \
+         --threads $SLURM_CPUS \
+         $QUAST_IN

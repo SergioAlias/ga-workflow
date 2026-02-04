@@ -60,13 +60,13 @@ case "$module" in
         ;;
     "5b")
         SCRIPT_TO_RUN="05b_mini.sh"
-        SLURM_CPUS="24"
+        SLURM_CPUS="24" # Must consider MINIMAP2_THREADS in config.sh
         SLURM_MEM="64G"
         SLURM_TIME="0-12:00:00"
         ;;
     "6")
         SCRIPT_TO_RUN="06_racon.sh"
-        SLURM_CPUS="24"
+        SLURM_CPUS="24" # Must consider MINIMAP2_THREADS and RACON_THREADS in config.sh
         SLURM_MEM="64G"
         SLURM_TIME="0-23:59:00"
         ;;
@@ -90,9 +90,9 @@ case "$module" in
         ;;
     "10")
         SCRIPT_TO_RUN="10_quast.sh"
-        SLURM_CPUS="4"
+        SLURM_CPUS="8"
         SLURM_MEM="8G"
-        SLURM_TIME="0-01:00:00"
+        SLURM_TIME="0-00:15:00"
         ;;
     "11a")
         SCRIPT_TO_RUN="11a_funann.sh"

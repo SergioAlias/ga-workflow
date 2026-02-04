@@ -95,8 +95,8 @@ export BAM2FQ_OUT=$MERGE_OUT          #-----#  Changes input dir if module 2 is 
 ######  MODULE 5: ASSEMBLIES #######
 
 [ "$FASTPLONG_ACTIVATE" != "True" ] && \
-export FASTPLONG_OUT=$BAM2FQ_OUT          #-----#  Changes input dir if module 4 is not performed
-export ASSEMBLY_TARGET="spades_hybrid"    #-----#  Assembly we will polish. Valid choices: (flye, minimap2_miniasm, spades, spades_hybrid)
+export FASTPLONG_OUT=$BAM2FQ_OUT    #-----#  Changes input dir if module 4 is not performed
+export ASSEMBLY_TARGET="spades"     #-----#  Assembly we will polish. Valid choices: (flye, minimap2_miniasm, spades, spades_hybrid)
 
 
 ######  MODULE 5a: ASSEMBLY WITH FLYE #######
@@ -118,15 +118,15 @@ export FYLE_GSIZE="55m"               #-----# Estimated genome size (for example
 
 ######  MODULE 5b: ASSEMBLY WITH MINIMAP2 AND MINIASM #######
 
-export MINI_OUT=$WDIR"/minimap2_miniasm"                    #-----# Minimap2 and Miniasm outdir
-export MINIMAP2_PATH="/home/sioly/applications/minimap2"    #-----# Minimap2 installation path
-export MINIMAP2_THREADS=15                                  #-----# Number of threads to use [default: 3]
-export MINIASM_PATH="/home/sioly/applications/miniasm"      #-----# Miniasm installation path
+export MINI_OUT=$WDIR"/minimap2_miniasm"                           #-----# Minimap2 and Miniasm outdir
+export MINIMAP2_PATH="/home/salias/bin/minimap2-2.30_x64-linux"    #-----# Minimap2 installation path
+export MINIMAP2_THREADS=15                                         #-----# Number of threads to use [default: 3] (also used for Racon)
+export MINIASM_PATH="/home/sioly/applications/miniasm"             #-----# Miniasm installation path
 
 
 ######  MODULE 6: ASSEMBLY POLISHING WITH RACON #######
 
-export RACON_ACTIVATE=True                                      #-----# True if you will run this module, False otherwise
+export RACON_ACTIVATE=False                                     #-----# True if you will run this module, False otherwise
 export RACON_OUT=$WDIR"/racon"                                  #-----# Racon outdir
 export RACON_PATH="/home/sioly/applications/racon/build/bin"    #-----# Racon installation path
 export RACON_THREADS=15                                         #-----# Number of threads to use [default: 1]
@@ -173,9 +173,8 @@ export NO_MITO_FILE="$MITO_OUT/no_mito_$(basename "${CONTAM_IN%.*}").fasta"    #
 
 ######  MODULE 10: ASSEMBLY QUALITY #######
 
-export QUAST_OUT=$WDIR"/quast"                              #-----# QUAST outdir
-export QUAST_PATH="/home/sioly/applications/quast.5.2.0"    #-----# QUAST installation path
-export QUAST_THREADS=8                                      #-----# Number of threads to use
+export QUAST_OUT=$WDIR"/quast"      #-----# QUAST outdir
+export QUAST_GENOME="prokaryote"    #-----# Type of genome. Options: prokaryote (default), eukaryote, fungus
 
 
 ######  MODULE 11a: ANNOTATION WITH FUNANNOTATE #######
