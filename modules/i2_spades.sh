@@ -20,4 +20,4 @@ spades.py ${SPADES_IN[@]} \
           --threads $SPADES_THREADS \
           --memory $SPADES_RAM
 
-mv $SPADES_OUT/contigs.fasta $SPADES_OUT/$SPADES_NAME".fasta"
+mv $SPADES_OUT/scaffolds.fasta $SPADES_OUT/$SPADES_NAME".fasta"
