@@ -15,9 +15,9 @@ SPADES_IN+=(-2 $INPUT_R)
 [[ $SPADES_HYBRID == "True" ]] && \
 SPADES_IN+=(--pacbio $FASTPLONG_OUT/$STRAIN".fastq")
 
-spades.py ${SPADES_IN[@]} \
-          -o $SPADES_OUT \
-          --threads $SPADES_THREADS \
-          --memory $SPADES_RAM
+$SPADES_PATH/spades.py ${SPADES_IN[@]} \
+                       -o $SPADES_OUT \
+                       --threads $SLURM_CPUS \
+                       --memory ${SLURM_MEM%[Gg]*} # strip the G/g
 
 mv $SPADES_OUT/contigs.fasta $SPADES_OUT/$SPADES_NAME".fasta"

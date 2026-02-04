@@ -224,9 +224,8 @@ export CUTADAPT_THREADS=2                                         #-----# Number
 
 ######  MODULE i2: ASSEMBLY WITH SPADES #######
 
-export SPADES_THREADS=10                  #-----# Number of threads for SPAdes [default: 16]
-export SPADES_RAM=60                      #-----# RAM limit for SPAdes in Gb (terminates if exceeded) [default: 250]
-export SPADES_HYBRID=True                 #-----# True if you want to use long reads too, False otherwise
+export SPADES_PATH="/home/salias/bin/SPAdes-4.2.0-Linux/bin"    #-----# SPAdes installation path
+export SPADES_HYBRID=False                                      #-----# True if you want to use long reads too, False otherwise
 
 if [ "$SPADES_HYBRID" == "True" ]; then
     export SPADES_NAME="spades_hybrid"    #-----# Name for SPAdes directory and FASTA file if hybrid assembly is performed
