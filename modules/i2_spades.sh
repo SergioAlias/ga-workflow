@@ -22,4 +22,4 @@ $SPADES_PATH/spades.py ${SPADES_IN[@]} \
                        --threads $SLURM_CPUS \
                        --memory ${SLURM_MEM%[Gg]*} # strip the G/g
 
-mv $SPADES_OUT/contigs.fasta $SPADES_OUT/$SPADES_NAME".fasta"
+mv $SPADES_OUT/scaffolds.fasta $SPADES_OUT/$SPADES_NAME".fasta"
