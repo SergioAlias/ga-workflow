@@ -82,8 +82,8 @@ case "$module" in
         SLURM_MEM="16G"
         SLURM_TIME="0-02:00:00"
         ;;
-    "9")
-        SCRIPT_TO_RUN="09_mito.sh"
+    "9a")
+        SCRIPT_TO_RUN="09a_mito.sh"
         SLURM_CPUS="4"
         SLURM_MEM="8G"
         SLURM_TIME="0-01:00:00"

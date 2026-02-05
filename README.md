@@ -56,7 +56,7 @@ perl change_path_in_perl_scripts.pl '/usr/bin/env perl'
 ./daemon.sh N
 ```
 
-Replace `N` with the module number you want to run (`0`, `1a`, `1b`, `1c`, `2`, `3`, `4`, `5a`, `5b`, `6`, `7`, `8`, `9`, `10`, `i0`, `i1`, `i2`).
+Replace `N` with the module number you want to run (`0`, `1a`, `1b`, `1c`, `2`, `3`, `4`, `5a`, `5b`, `6`, `7`, `8`, `9a`, `10`, `i0`, `i1`, `i2`).
 
 For modules **0** (LongQC) and **i0** (FastQC), you can use the optional `-r` flag:
 
@@ -81,7 +81,7 @@ Each module is run separately through the `daemon.sh` controller. Modules are:
 - **6**: Assembly Polishing with Racon
 - **7**: Assembly Polishing with short reads with Pilon
 - **8**: Contamination check with NCBI BLAST
-- **9**: Mitochondrial contigs detection
+- **9a**: Mitochondrial contigs detection
 - **10**: Assembly Quality with QUAST
 - **i0**: FastQC (Illumina)
 - **i1**: Cutadapt (Illumina)
@@ -108,7 +108,7 @@ For full details on parameters, see comments in `config.sh`. For a visual unders
 ./daemon.sh i0 -r     # Repeat QC on processed short reads
 ./daemon.sh 7         # Polish assembly with short reads
 ./daemon.sh 8         # Check contamination
-./daemon.sh 9         # Detect mitochondrial contigs
+./daemon.sh 9a        # Detect mitochondrial contigs
 ./daemon.sh 10        # Assess assembly quality
 
 
@@ -124,7 +124,7 @@ For full details on parameters, see comments in `config.sh`. For a visual unders
 ./daemon.sh 6         # Polish assembly
 ./daemon.sh 7         # Polish assembly with short reads
 ./daemon.sh 8         # Check contamination
-./daemon.sh 9         # Detect mitochondrial contigs
+./daemon.sh 9a        # Detect mitochondrial contigs
 ./daemon.sh 10        # Assess assembly quality
 
 
@@ -136,7 +136,7 @@ For full details on parameters, see comments in `config.sh`. For a visual unders
 ./daemon.sh 5a        # Assemble with Flye
 ./daemon.sh 6         # Polish assembly
 ./daemon.sh 8         # Check contamination
-./daemon.sh 9         # Detect mitochondrial contigs
+./daemon.sh 9a        # Detect mitochondrial contigs
 ./daemon.sh 10        # Assess assembly quality
 ```
 

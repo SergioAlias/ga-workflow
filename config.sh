@@ -162,7 +162,7 @@ else
 fi   
 
 
-######  MODULE 9: MITOCHONDRIAL CONTIGS DETECTION #######
+######  MODULE 9a: MITOCHONDRIAL CONTIGS DETECTION #######
 
 export MITO_OUT=$WDIR"/tiara"                                                  #-----# Mitochondrial contigs detection outdir
 export MITO_THREADS=4                                                          #-----# Number of threads to use
