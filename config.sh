@@ -135,7 +135,7 @@ export RACON_ITER=3                                             #-----# Number o
 
 ######  MODULE 7: ASSEMBLY POLISHING WITH PILON #######
 
-export PILON_ACTIVATE=True                                        #-----# True if you will run this module, False otherwise
+export PILON_ACTIVATE=False                                       #-----# True if you will run this module, False otherwise
 
 if [ "$RACON_ACTIVATE" == "True" ]; then
     export PILON_IN=$RACON_OUT/$ASSEMBLY_TARGET"/iter_"$RACON_ITER/$ASSEMBLY_TARGET"_racon_"$RACON_ITER".fasta"    #-----# Assembly file if Racon was used
@@ -169,6 +169,11 @@ export MITO_THREADS=4                                                          #
 export MITO_PCUTOFF_1=0.65                                                     #-----# Probability threshold needed for classification to a class in the first stage [default: 0.65]
 export MITO_PCUTOFF_2=0.65                                                     #-----# Probability threshold needed for classification to a class in the second stage [default: 0.65]
 export NO_MITO_FILE="$MITO_OUT/no_mito_$(basename "${CONTAM_IN%.*}").fasta"    #-----# Assembly outfile without mitochondrial contig(s)
+
+
+######  MODULE 9b: PLASMID CONTIGS DETECTION #######
+
+export PLASMID_OUT=$WDIR"/mob_suite"
 
 
 ######  MODULE 10: ASSEMBLY QUALITY #######

@@ -1,4 +1,4 @@
-# Fungal Genome Assembly and Annotation Workflow 🧬🍄
+# Genome Assembly and Annotation Workflow 🧬🍄🦠
 
 
 > [!CAUTION]
@@ -15,7 +15,7 @@
 > git checkout legacy/odie_ciale
 > ```
 
-This repository provides a modular, bash-based workflow for fungal genome assembly and annotation using PacBio, ONT and/or Illumina reads.
+This repository provides a modular, bash-based workflow for genome assembly and annotation using PacBio, ONT and/or Illumina reads.
 
 <img src="./img/workflow.png">
 
@@ -82,6 +82,7 @@ Each module is run separately through the `daemon.sh` controller. Modules are:
 - **7**: Assembly Polishing with short reads with Pilon
 - **8**: Contamination check with NCBI BLAST
 - **9a**: Mitochondrial contigs detection
+- **9b**: Plasmid contigs detection
 - **10**: Assembly Quality with QUAST
 - **i0**: FastQC (Illumina)
 - **i1**: Cutadapt (Illumina)
@@ -94,7 +95,7 @@ For full details on parameters, see comments in `config.sh`. For a visual unders
 ## Examples
 
 ```bash
-# PacBio HiFi assembly from raw subreads
+# PacBio HiFi assembly from raw subreads (Fungi)
 ./daemon.sh 0         # Quality Control
 ./daemon.sh 1b        # Convert to CCS (HiFi) [OPTIONAL]
 ./daemon.sh 0 -r      # Repeat QC on processed reads
@@ -112,7 +113,7 @@ For full details on parameters, see comments in `config.sh`. For a visual unders
 ./daemon.sh 10        # Assess assembly quality
 
 
-# Illumina and PacBio subread hybrid assembly
+# Illumina and PacBio subread hybrid assembly (Fungi)
 ./daemon.sh i0        # Quality control of short reads
 ./daemon.sh i1        # Adapter trimming [OPTIONAL]
 ./daemon.sh i0 -r     # Repeat QC on processed short reads
@@ -128,7 +129,7 @@ For full details on parameters, see comments in `config.sh`. For a visual unders
 ./daemon.sh 10        # Assess assembly quality
 
 
-# ONT assembly without short reads (WARNING: modules 0 and 1c do not work for ONT yet)
+# ONT assembly without short reads (Fungi) (WARNING: modules 0 and 1c do not work for ONT yet)
 ./daemon.sh 0         # Quality Control
 ./daemon.sh 1c        # ONT Adapter trimming [OPTIONAL]
 ./daemon.sh 0 -r      # Repeat QC on processed reads

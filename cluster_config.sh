@@ -88,6 +88,12 @@ case "$module" in
         SLURM_MEM="8G"
         SLURM_TIME="0-01:00:00"
         ;;
+    "9b")
+        SCRIPT_TO_RUN="09b_plasmid.sh"
+        SLURM_CPUS="4"
+        SLURM_MEM="8G"
+        SLURM_TIME="0-01:00:00"
+        ;;
     "10")
         SCRIPT_TO_RUN="10_quast.sh"
         SLURM_CPUS="8"
@@ -119,11 +125,10 @@ case "$module" in
         SLURM_TIME="0-02:00:00"
         ;;
     "i2")
-        SLURM_PARTITION="long" 
         SCRIPT_TO_RUN="i2_spades.sh"
         SLURM_CPUS="10" # default: 16
-        SLURM_MEM="100G" # default: 250
-        SLURM_TIME="2-00:00:00"
+        SLURM_MEM="100G" # default: 250G
+        SLURM_TIME="0-23:59:00"
         ;;
     *)
         echo "Error: No entry on cluster_config.sh for module $module"
