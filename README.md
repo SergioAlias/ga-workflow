@@ -56,7 +56,7 @@ perl change_path_in_perl_scripts.pl '/usr/bin/env perl'
 ./daemon.sh N
 ```
 
-Replace `N` with the module number you want to run (`0`, `1a`, `1b`, `1c`, `2`, `3`, `4`, `5a`, `5b`, `6`, `7`, `8`, `9a`, `9b`, `10`, `i0`, `i1`, `i2`).
+Replace `N` with the module number you want to run (`0`, `1a`, `1b`, `1c`, `2`, `3`, `4`, `5a`, `5b`, `6`, `7`, `8`, `9a`, `9b`, `10`, `11b`, `i0`, `i1`, `i2`).
 
 For modules **0** (LongQC) and **i0** (FastQC), you can use the optional `-r` flag:
 
@@ -84,6 +84,8 @@ Each module is run separately through the `daemon.sh` controller. Modules are:
 - **9a**: Mitochondrial contigs detection
 - **9b**: Plasmid contigs detection
 - **10**: Assembly Quality with QUAST
+- **11a**: (INCOMPLETE) Genome annonation (Fungi) with Funannotate
+- **11b**: Genome annonation (Bacteria, plasmids) with Bakta
 - **i0**: FastQC (Illumina)
 - **i1**: Cutadapt (Illumina)
 - **i2**: Assembly with SPAdes (Illumina, but long reads are also accepted for hybrid assembly)

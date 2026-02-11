@@ -153,7 +153,7 @@ export PILON_ITER=5                                               #-----# Number
 ######  MODULE 8: CONTAMINATION CHECK #######
 
 export CONTAM_OUT=$WDIR"/contam"    #-----# Contamination check outdir
-export CONTAM_TAXID="31870"         #-----# NCBI taxon ID of the species. Examples: Colletotrichum graminicola, 31870; Fusarium flocciferum, 56642
+export CONTAM_TAXID="56642"         #-----# NCBI taxon ID of the species. Examples: Colletotrichum graminicola, 31870; Fusarium flocciferum, 56642
 
 if [ "$PILON_ACTIVATE" == "True" ]; then
     export CONTAM_IN=$PILON_OUT/$ASSEMBLY_TARGET"/iter_"$PILON_ITER/$ASSEMBLY_TARGET"_pilon_"$PILON_ITER".fasta"    #-----# Assembly file if Pilon was used
@@ -203,6 +203,15 @@ export FUNANN_IPRSCAN_CPUS=2                                                    
 export FUNANN_ANTISMASH_CPUS=8                                                       #-----# antiSMASH: How many CPUs to use in parallel [default: all CPUs]
 export FUNANN_ANNOTATE_CPUS=8                                                        #-----# Annotate: Number of CPUs to use [default: 2]
 export FUNANN_COMPARE_CPUS=4                                                         #-----# Compare: Number of CPUs to use [default: 2]
+
+
+######  MODULE 11b: ANNOTATION WITH BAKTA #######
+
+export BAKTA_OUT=$WDIR"/bakta"                                #-----# Bakta outdir
+export BAKTA_DB=/home/salias/data/bakta_databases/db-light    #-----# Bakta database (must be downloaded before execution with bakta_db download --type full/light)
+export BAKTA_GENUS=Bacillus                                   #-----# Genus
+export BAKTA_SPECIES=mycoides                                 #-----# Species
+export BAKTA_GRAM=+                                           #-----# Gram type for signal peptide predictions: +/-/? [default: ?]
 
 
 ######  MODULE 12: ANNOTATION QUALITY #######

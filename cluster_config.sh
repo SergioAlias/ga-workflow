@@ -106,6 +106,13 @@ case "$module" in
         SLURM_MEM="32G"
         SLURM_TIME="0-12:00:00"
         ;;
+    "11b")
+        SLURM_PARTITION="long"
+        SCRIPT_TO_RUN="11b_bakta.sh"
+        SLURM_CPUS="20"
+        SLURM_MEM="40G"
+        SLURM_TIME="10-00:00:00"
+        ;;
     "12")
         SCRIPT_TO_RUN="12_busco.sh"
         SLURM_CPUS="8"
